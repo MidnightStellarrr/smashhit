@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmashHIT</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <!-- CSS link -->
+    <link rel="stylesheet" href="css/homepage1.css">
+</head>
+<body>
+    
+    <div id="app">
+        <!-- ===== NAVBAR ===== -->
+        <div class="navbar">
+            <div class="logo">
+                <img src="images/logo_sample.png" alt="SmashHIT Logo" class="logo-img">
+            </div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Services</a>
+                <a href="#">About Us</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="#">Login</a>
+                <a href="#">Register</a>
+            </div>
+        </div>
+
+        <!-- ===== HERO CAROUSEL (3 slides) ===== -->
+        <div class="hero-carousel">
+            <div class="slides-container" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+
+                <!-- SLIDE 1: main_header.jpg -->
+                <div class="slide" :style="{ backgroundImage: `url('images/main_header.jpg')` }">
+                    <div class="hero-headline">
+                        <h1>Train. Play.<br>Conquer.</h1>
+                    </div>
+                    <div class="hero-content">
+                        <p>Welcome to SmashHIT — where you can play badminton, hit the gym, or take a class with our certified coaches. Come play, train, learn, and grow — all in one place.</p>
+                        <div class="btn-group">
+                            <a href="#" class="btn-primary">Learn More</a>
+                            <a href="#" class="btn-secondary">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2: badminton_header.jpg -->
+                <div class="slide" :style="{ backgroundImage: `url('images/badminton_header.jpg')` }">
+                    <div class="hero-headline">
+                        <h1>Play Your<br>Best Game.</h1>
+                    </div>
+                    <div class="hero-content">
+                        <p>Grab a racket, bring a friend, and enjoy the game. The courts are waiting for you, whether you're a beginner or a seasoned player. Just show up, warm up, and let the games begin.</p>
+                        <div class="btn-group">
+                            <a href="#" class="btn-primary">View Courts</a>
+                            <a href="#" class="btn-secondary">Book a Court</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 3: gym_header.jpg -->
+                <div class="slide" :style="{ backgroundImage: `url('images/gym_header.jpg')` }">
+                    <div class="hero-headline">
+                        <h1>Stronger<br>Every Day.</h1>
+                    </div>
+                    <div class="hero-content">
+                        <p>No rush. No pressure. Move at your speed, your way. Whether you want a quick workout, SmashHIT meets you where you are. Just come as you are and go at your own pace.</p>
+                        <div class="btn-group">
+                            <a href="#" class="btn-primary">Join the Gym</a>
+                            <a href="#" class="btn-secondary">Get Memberships</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Arrows -->
+            <div class="carousel-arrow arrow-left" @click="prevSlide">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="carousel-arrow arrow-right" @click="nextSlide">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+
+            <!-- Dots Indicators -->
+            <div class="carousel-dots">
+                <button
+                    v-for="(slide, idx) in 3"
+                    :key="idx"
+                    class="dot"
+                    :class="{ active: currentIndex === idx }"
+                    @click="goToSlide(idx)"
+                ></button>
+            </div>
+        </div>
+
+        <!-- ===== SERVICE HIGHLIGHT SECTION ===== -->
+        <section class="service-section">
+            <div class="service-card">
+                <div class="service-slides-container" :style="{ transform: `translateX(-${serviceIndex * 100}%)` }">
+                    <div class="service-slide" :style="{ backgroundImage: `url('images/court_services_sec.jpg')` }">
+                        <div class="service-overlay"></div>
+                        <div class="service-card-content">
+                            <span>Badminton<br>Courts</span>
+                        </div>
+                        <div class="service-card-action">
+                            <a href="#" class="service-cta">View more <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="service-slide" :style="{ backgroundImage: `url('images/gym_membership.jpg')` }">
+                        <div class="service-overlay"></div>
+                        <div class="service-card-content">
+                            <span>Gym<br>Membership</span>
+                        </div>
+                        <div class="service-card-action">
+                            <a href="#" class="service-cta">View more <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="service-slide" :style="{ backgroundImage: `url('images/badminton_class.jpg')` }">
+                        <div class="service-overlay"></div>
+                        <div class="service-card-content">
+                            <span>Badminton<br>Classes</span>
+                        </div>
+                        <div class="service-card-action">
+                            <a href="#" class="service-cta">View more <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-arrow service-arrow-left" @click="prevServiceSlide">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="service-arrow service-arrow-right" @click="nextServiceSlide">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            <div class="service-details">
+                <p class="section-label" style="color: red;">OUR SERVICES</p>
+                <h2>SmashHIT offers badminton court booking, gym memberships, expert coaching classes, and regular tournaments for all skill levels.</h2>
+                <p>Book courts by the hour, choose monthly gym memberships, sign up for classes, or join a tournament. Everything is backed by GCash payment, real-time availability, and quick QR check-ins.</p>
+                <a href="#" class="btn-primary service-button">Learn More</a>
+            </div>
+        </section>
+        
+        <!-- ===== STATS BAR ===== -->
+        <section class="stats-section">
+            <div class="stats-container">
+                <div class="stat">
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">Years of Service</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Booked again within 30 days</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">4.8</div>
+                    <div class="stat-label">Google Ratings</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">#1</div>
+                    <div class="stat-label">Badminton Court in the city (2025)</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ===== WHY CHOOSE US ===== -->
+        <section class="why-section">
+            <div class="why-container">
+                <div class="why-header">
+                    <h2>Why Choose Us</h2>
+                    <p>Discover a facility committed to your fitness journey, where every benefit is designed to save you time and money.</p>
+                </div>
+
+                <div class="why-grid">
+                    <article class="why-card why-card--highlight">
+                        <div class="why-icon"><i class="fas fa-calendar-check"></i></div>
+                        <h3>Online Booking</h3>
+                        <p>Our commitment to convenience starts with booking — discover how simple it is to reserve a court in under a minute.</p>
+                    </article>
+
+                    <article class="why-card">
+                        <div class="why-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <h3>Badminton Classes</h3>
+                        <p>Learn from certified coaches. Beginner to advanced levels. Private and group sessions available.</p>
+                    </article>
+
+                    <article class="why-card">
+                        <div class="why-icon"><i class="fas fa-dumbbell"></i></div>
+                        <h3>Fully-Equipped Gym</h3>
+                        <p>Modern machines, free weights, and cardio equipment. Clean, maintained, and ready for you.</p>
+                    </article>
+
+                    <article class="why-card">
+                        <div class="why-icon"><i class="fas fa-trophy"></i></div>
+                        <h3>Tournaments</h3>
+                        <p>Compete, win prizes, and meet other players. Monthly events for all skill levels.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== NEWS & UPDATES ===== -->
+    <section class="news-section">
+            <div class="news-container">
+                <span class="label">Announcements</span>
+                <h2 class="news-title">News & Updates</h2>
+                <div class="news-grid">
+                    <article class="news-card news-card--large" style="background-image: url('images/badminton_courts.jpg')">
+                        <div class="news-overlay"></div>
+                        <div class="news-card-content">
+                            <h3 style="font-size: 3.5rem;">UPCOMING<br>TOURNAMENT</h3>
+                            <p style="padding-bottom: 13rem;">SmashHIT Summer Open 2026<br>Registration Now Open</p>
+                            <a href="#" class="learn-btn-primary">Learn More</a>
+                        </div>
+                    </article>
+
+                    <div class="news-right-column">
+                        <article class="sec-news-card" style="background-image: url('images/court_services_sec.jpg')">
+                            <div class="news-overlay"></div>
+                            <div class="news-card-content">
+                                <p class="small">Learn the basics from certified coaches. Four sessions covering footwork, grips, serves, and basic rallies.</p>
+                                <h3 style="font-size: 2rem;">BEGINNER BADMINTON CLASSES</h3>
+                                <a href="#" class="btn-primary" style="margin-left: 15rem;">Enroll Now</a>
+                            </div>
+                        </article>
+
+                        <article class="third-news-card" style="background-image: url('images/gym_header.jpg')">
+                            <div class="news-overlay"></div>
+                            <div class="news-card-content small">
+                                <h3 style="font-size: 1.7rem;">FACILITY UPDATE</h3>
+                                <p>New gym equipment arriving this month</p>
+                                <a href="#" class="btn-secondary" style="margin-left: 12rem;">See What's New</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+        <!-- ===== ABOUT US ===== -->
+    <section class="about-section">
+        <div class="about-us-banner" style="background-image: url('images/about_us_bg.jpg')">
+            <div class="about-us-overlay"></div>
+                <div class="about-us-copy">
+                    <span class="about-label">About Us</span>
+                    <h2>SmashHIT began years ago with one goal to make badminton and fitness accessible to everyone who wants to play, train, or to stay moving.</h2>
+                    <a href="#" class="learn-btn-primary">Learn More</a>
+                </div>
+        </div>
+    </section>
+
+    <!-- ===== PLANS ===== -->
+    <section class="plans-section">
+        <div class="plans-container">
+            <div class="plans-header">
+                <h2>Plans That Fit Your Game</h2>
+                <p>Flexible options. Fair prices.</p>
+            </div>
+
+            <div class="plans-list">
+                <article class="plan-card" style="background-image: url('images/badminton_courts.jpg')">
+                    <div class="plan-overlay"></div>
+                    <div class="plan-card-content">
+                        <h3>Start Playing</h3>
+                        <a href="#" class="plan-link">Book Now</a>
+                    </div>
+                </article>
+
+                <article class="plan-card" style="background-image: url('images/gym_access.jpg')">
+                    <div class="plan-overlay"></div>
+                    <div class="plan-card-content">
+                        <h3>Membership Plan</h3>
+                        <a href="#" class="plan-link">Get Yours</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>SmashHIT</h2>
+                <p>Welcome to SmashHIT — where you can play badminton, hit the gym, or do both.</p>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <div class="footer-contact">
+                    <p>smashHIT@gmail.com</p>
+                    <p>097361274809</p>
+                    <p>BARANGAY, Quezon St, New Pandan, Panabo, 8105</p>
+                    <p>Davao del Norte</p>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div>
+                    <h3>MAIN</h3>
+                    <a href="#">Home</a>
+                    <a href="#">Services</a>
+                    <a href="#">About Us</a>
+                    <a href="#">Announcements</a>
+                </div>
+
+                <div>
+                    <h3>SUPPORT</h3>
+                    <a href="#">Contact</a>
+                    <a href="#">FAQ</a>
+                </div>
+            </div>
+
+            <div class="footer-signup">
+                <label for="footer-email">Enter e-mail address</label>
+                <input id="footer-email" type="email" placeholder="">
+
+                <div class="footer-actions">
+                    <a href="#" class="footer-login">Login</a>
+                    <a href="#" class="footer-signup-btn">Sign Up</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 SmashHIT Badminton Facility — Move Your Way.</p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script>
+        const { createApp, ref, onMounted, onUnmounted } = Vue;
+
+        const app = createApp({
+            setup() {
+                const currentIndex = ref(0);
+                let autoInterval = null;
+                let serviceInterval = null;
+                const AUTO_DELAY = 5500;
+                let isTransitioning = false;
+                let isServiceTransitioning = false;
+                const serviceIndex = ref(0);
+
+                const goToSlide = (index) => {
+                    if (isTransitioning) return;
+                    if (index < 0) index = 0;
+                    if (index > 2) index = 2;
+                    if (index === currentIndex.value) return;
+
+                    isTransitioning = true;
+                    currentIndex.value = index;
+
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, 600);
+                };
+
+                const nextSlide = () => {
+                    if (isTransitioning) return;
+                    let next = currentIndex.value + 1;
+                    if (next > 2) next = 0;
+                    goToSlide(next);
+                    resetAutoPlay();
+                };
+
+                const prevSlide = () => {
+                    if (isTransitioning) return;
+                    let prev = currentIndex.value - 1;
+                    if (prev < 0) prev = 2;
+                    goToSlide(prev);
+                    resetAutoPlay();
+                };
+
+                const goToServiceSlide = (index) => {
+                    if (isServiceTransitioning) return;
+                    if (index < 0) index = 0;
+                    if (index > 2) index = 2;
+                    if (index === serviceIndex.value) return;
+
+                    isServiceTransitioning = true;
+                    serviceIndex.value = index;
+
+                    setTimeout(() => {
+                        isServiceTransitioning = false;
+                    }, 600);
+                };
+
+                const nextServiceSlide = () => {
+                    if (isServiceTransitioning) return;
+                    let next = serviceIndex.value + 1;
+                    if (next > 2) next = 0;
+                    goToServiceSlide(next);
+                    resetServiceAutoPlay();
+                };
+
+                const prevServiceSlide = () => {
+                    if (isServiceTransitioning) return;
+                    let prev = serviceIndex.value - 1;
+                    if (prev < 0) prev = 2;
+                    goToServiceSlide(prev);
+                    resetServiceAutoPlay();
+                };
+
+                const resetAutoPlay = () => {
+                    if (autoInterval) clearInterval(autoInterval);
+                    autoInterval = setInterval(() => {
+                        if (!isTransitioning) {
+                            nextSlide();
+                        }
+                    }, AUTO_DELAY);
+                };
+
+                const resetServiceAutoPlay = () => {
+                    if (serviceInterval) clearInterval(serviceInterval);
+                    serviceInterval = setInterval(() => {
+                        if (!isServiceTransitioning) {
+                            nextServiceSlide();
+                        }
+                    }, AUTO_DELAY + 800);
+                };
+
+                const setupHoverPause = () => {
+                    const carouselEl = document.querySelector('.hero-carousel');
+                    if (!carouselEl) return;
+                    carouselEl.addEventListener('mouseenter', () => {
+                        if (autoInterval) clearInterval(autoInterval);
+                    });
+                    carouselEl.addEventListener('mouseleave', () => {
+                        resetAutoPlay();
+                    });
+
+                    const serviceCardEl = document.querySelector('.service-card');
+                    if (!serviceCardEl) return;
+                    serviceCardEl.addEventListener('mouseenter', () => {
+                        if (serviceInterval) clearInterval(serviceInterval);
+                    });
+                    serviceCardEl.addEventListener('mouseleave', () => {
+                        resetServiceAutoPlay();
+                    });
+                };
+
+                onMounted(() => {
+                    resetAutoPlay();
+                    resetServiceAutoPlay();
+                    setupHoverPause();
+                });
+
+                onUnmounted(() => {
+                    if (autoInterval) clearInterval(autoInterval);
+                    if (serviceInterval) clearInterval(serviceInterval);
+                });
+
+                return {
+                    currentIndex,
+                    serviceIndex,
+                    goToSlide,
+                    nextSlide,
+                    prevSlide,
+                    nextServiceSlide,
+                    prevServiceSlide,
+                    goToServiceSlide
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>

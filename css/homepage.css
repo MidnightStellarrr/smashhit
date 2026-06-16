@@ -1,0 +1,198 @@
+/* ===== NAVBAR ===== */
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0; /* Stretch from left to right */
+    width: 100%;
+    z-index: 30;
+    padding: 1.2rem 4vw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    background: rgba(0, 0, 0, 0.85); 
+    backdrop-filter: blur(5px);        
+    box-sizing: border-box;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: 3rem;
+}
+
+.logo img {
+    height: 45px; /* Fixed height for consistency */
+    width: auto;
+    display: block;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    flex-shrink: 0; /* Don't shrink links */
+}
+
+.nav-links a {
+    color: #EFEEE8;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: 0.2s;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.nav-links a:hover {
+    color: #EF0606;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-left: auto; /* Pushes to the right */
+    flex-shrink: 0;
+}
+
+.auth-buttons a {
+    color: #EFEEE8;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: 0.2s;
+    white-space: nowrap;
+}
+
+.auth-buttons a:first-child {
+    color: #ffffff;
+}
+
+.auth-buttons a:last-child {
+    background: #ffffff;
+    padding: 0.4rem 1.2rem;
+    border-radius: 40px;
+    color: #000000;
+}
+
+.auth-buttons a:last-child:hover {
+    background: #ff3333;
+    transform: translateY(-2px);
+}
+
+/* Large Screens - Adjust spacing */
+@media (min-width: 1400px) {
+    .navbar {
+        padding: 1.2rem 8vw; /* More padding on very large screens */
+    }
+    
+    .nav-links {
+        gap: 3.5rem; /* More space between links */
+    }
+}
+
+/* Tablet / Medium Screens */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 1.2rem 3vw;
+    }
+    
+    .logo {
+        margin-right: 2rem;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
+    .nav-links {
+        gap: 2rem;
+    }
+    
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+    
+    .auth-buttons {
+        gap: 1.2rem;
+    }
+    
+    .auth-buttons a {
+        font-size: 0.85rem;
+    }
+    
+    .auth-buttons a:last-child {
+        padding: 0.35rem 1rem;
+    }
+}
+
+@media (max-width: 860px) {
+    .navbar {
+        padding: 1rem 2rem;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        margin-right: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 1.5rem;
+    }
+    
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+    
+    .auth-buttons a:last-child {
+        padding: 0.3rem 0.8rem;
+    }
+}
+
+/* Mobile Screens */
+@media (max-width: 650px) {
+    .navbar {
+        flex-direction: column;
+        gap: 0.8rem;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        align-items: center;
+        padding: 1rem;
+        width: 100%;
+    }
+    
+    .logo {
+        margin-right: 0;
+    }
+    
+    .logo img {
+        height: 35px;
+    }
+    
+    .nav-links {
+        gap: 1.2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-shrink: 1;
+    }
+    
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+    
+    .auth-buttons {
+        margin-left: 0;
+        gap: 1rem;
+    }
+    
+    .auth-buttons a {
+        font-size: 0.8rem;
+    }
+    
+    .auth-buttons a:last-child {
+        padding: 0.3rem 0.8rem;
+    }
+}
