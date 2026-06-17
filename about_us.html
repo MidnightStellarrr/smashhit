@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Separate CSS file -->
+    <link rel="stylesheet" href="css/about_us.css" />
+</head>
+<body>
+    <div id="app">
+        <!-- ===== NAVBAR ===== -->
+        <div class="navbar">
+            <div class="logo">
+                <img src="images/logo_sample.png" alt="SmashHIT Logo" class="logo-img" />
+            </div>
+            <div class="nav-links">
+                <a href="homepage.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="#">About Us</a>
+                <a href="contacts.html">Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html">Login</a>
+                <a href="register.html">Register</a>
+            </div>
+        </div>
+
+        <!-- ===== HERO SECTION ===== -->
+        <section class="hero-services" :style="{ backgroundImage: `url('images/hero_img_pages.jpg')` }">
+            <div class="hero-services-content">
+                <h1>{{ heroTitle }}</h1>
+                <p>{{ heroSubtitle }}</p>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT US SECTION ===== -->
+        <section class="about-us-section">
+            <div class="about-container">
+                <div class="about-grid">
+                    <!-- Left Column: Headings -->
+                    <div class="about-headings">
+                        <div class="about-sub-headings">
+                            <span class="about-sub">About us.</span>
+                            <span class="about-sub">Our Team.</span>
+                            <span class="about-sub">Values.</span>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Content -->
+                    <div class="about-content">
+                        <h1 class="about-main-title">Our Story.</h1>
+                        <p>
+                            SmashHIT started with a simple observation: booking a badminton court was harder than it needed to be. Players had to call ahead hope a slot was available or show up only to find all courts taken. Gym-goers faced the same frustration — expensive memberships long contracts and confusing policies. We knew there had to be a better way. So we built SmashHIT. A facility where you can book a court in under a minute pay online and just show up to play. No phone calls. No guesswork. No hassle.
+                        </p>
+                        <p>
+                            Today SmashHIT has grown into more than just a badminton facility. We now offer a fully-equipped gym badminton classes for all skill levels and regular tournaments for players who want to compete. But our core belief hasn't changed: fitness should be simple affordable and built around you. Whether you're booking your first court or your hundredth we're here to make every experience smooth from start to finish. That's our promise. That's SmashHIT.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MISSION SECTION ===== -->
+        <section class="mission-section">
+            <div class="mission-container">
+                <div class="mission-grid">
+                    <!-- Left Column: Text -->
+                    <div class="mission-text">
+                        <h2 class="mission-title">Our Mission</h2>
+                        <p>
+                            Our mission is to make fitness simple affordable and accessible for everyone. We remove the barriers that keep people from staying active — no hidden fees, no complicated booking systems, and no long-term contracts. Every service we offer, from court booking to gym memberships to coaching classes, is designed to be straightforward and hassle-free. Because staying active should never feel like a chore or a financial burden.
+                        </p>
+                    </div>
+
+                    <!-- Right Column: Image -->
+                    <div class="mission-image">
+                        <img src="images/about_us_mission.jpg" alt="Our Mission" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== VISION SECTION ===== -->
+        <section class="vision-section">
+            <div class="vision-container">
+                <div class="vision-grid">
+                    <!-- Left Column: Image -->
+                    <div class="vision-image">
+                        <img src="images/about_us_vision.jpg" alt="Our Vision" />
+                    </div>
+
+                    <!-- Right Column: Text -->
+                    <div class="vision-text">
+                        <h2 class="vision-title">Our Vision</h2>
+                        <p>
+                            Our vision is to be the go-to badminton and fitness facility where players gym-goers and learners feel welcome valued and supported. We want every visit to SmashHIT to be easy enjoyable and worth coming back to. We strive to build a community where beginners find their footing advanced players sharpen their skills and everyone leaves feeling better than when they arrived. That's the SmashHIT we are building every day.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>SmashHIT</h2>
+                <p>Welcome to SmashHIT — where you can play badminton, hit the gym, or do both.</p>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <div class="footer-contact">
+                    <p>smashHIT@gmail.com</p>
+                    <p>097361274809</p>
+                    <p>BARANGAY, Quezon St, New Pandan, Panabo, 8105</p>
+                    <p>Davao del Norte</p>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div>
+                    <h3>MAIN</h3>
+                    <a href="homepage.html">Home</a>
+                    <a href="services.html">Services</a>
+                    <a href="#">About Us</a>
+                    <a href="announcements.html">Announcements</a>
+                </div>
+
+                <div>
+                    <h3>SUPPORT</h3>
+                    <a href="contacts.html">Contact</a>
+                    <a href="faq.html">FAQ</a>
+                </div>
+            </div>
+
+            <div class="footer-signup">
+                <label for="footer-email">Enter e-mail address</label>
+                <input id="footer-email" type="email" placeholder="">
+
+                <div class="footer-actions">
+                    <a href="login.html" class="footer-login">Login</a>
+                    <a href="signup.html" class="footer-signup-btn">Sign Up</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 SmashHIT Badminton Facility — Move Your Way.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== VUE SECTION ===== -->
+    <script>
+        const { createApp, ref } = Vue;
+
+        const app = createApp({
+            setup() {
+                const heroTitle = ref('About Us');
+                const heroSubtitle = ref('Learn more about who we are and what we stand for.');
+
+                return {
+                    heroTitle,
+                    heroSubtitle,
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script> 
+</body>
+</html>
