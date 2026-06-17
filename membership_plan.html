@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Plan</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Separate CSS file -->
+    <link rel="stylesheet" href="css/membership_plan.css" />
+</head>
+<body>
+    <div id="app">
+        <!-- ===== NAVBAR ===== -->
+        <div class="navbar">
+            <div class="logo">
+                <img src="images/logo_sample.png" alt="SmashHIT Logo" class="logo-img" />
+            </div>
+            <div class="nav-links">
+                <a href="homepage.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about_us.html">About Us</a>
+                <a href="contacts.html">Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html">Login</a>
+                <a href="register.html">Register</a>
+            </div>
+        </div>
+
+        <!-- ===== HERO SECTION ===== -->
+        <section class="hero-services" :style="{ backgroundImage: `url('images/hero_img_pages.jpg')` }">
+            <div class="hero-services-content">
+                <h1>{{ heroTitle }}</h1>
+                <p>{{ heroSubtitle }}</p>
+            </div>
+        </section>
+
+        <!-- ===== MEMBERSHIP PLANS SECTION ===== -->
+        <section class="membership-plans">
+            <div class="plans-container">
+                <div class="plans-header">
+                    <h2>Unlock Unlimited Gym Access</h2>
+                    <p>Train anytime you want. No daily fees. No long-term contracts. Just flexible plans for real people.</p>
+                </div>
+
+                <div class="plans-grid">
+                    <div 
+                        v-for="(plan, index) in plans" 
+                        :key="index"
+                        class="plan-card"
+                        :class="{ 
+                            'plan-card--business': index === 1,
+                            'plan-card--premium': index === 2 
+                        }"
+                    >
+                        <div class="plan-badge" v-if="plan.badge">{{ plan.badge }}</div>
+                        <h3 class="plan-name">{{ plan.name }}</h3>
+                        <p class="plan-description">{{ plan.description }}</p>
+                        
+                        <div class="plan-duration">{{ plan.duration }}</div>
+                        <div class="plan-price">{{ plan.price }}</div>
+                        
+                        <ul class="plan-features">
+                            <li v-for="(feature, fIdx) in plan.features" :key="fIdx">
+                                <i class="fas fa-check-circle"></i> {{ feature }}
+                            </li>
+                        </ul>
+                        
+                        <a :href="plan.link" class="plan-select-btn">Select Plan</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div> 
+    
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>SmashHIT</h2>
+                <p>Welcome to SmashHIT — where you can play badminton, hit the gym, or do both.</p>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <div class="footer-contact">
+                    <p>smashHIT@gmail.com</p>
+                    <p>097361274809</p>
+                    <p>BARANGAY, Quezon St, New Pandan, Panabo, 8105</p>
+                    <p>Davao del Norte</p>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div>
+                    <h3>MAIN</h3>
+                    <a href="homepage.html">Home</a>
+                    <a href="services.html">Services</a>
+                    <a href="about_us.html">About Us</a>
+                    <a href="announcements.html">Announcements</a>
+                </div>
+
+                <div>
+                    <h3>SUPPORT</h3>
+                    <a href="contacts.html">Contact</a>
+                    <a href="faq.html">FAQ</a>
+                </div>
+            </div>
+
+            <div class="footer-signup">
+                <label for="footer-email">Enter e-mail address</label>
+                <input id="footer-email" type="email" placeholder="">
+
+                <div class="footer-actions">
+                    <a href="login.html" class="footer-login">Login</a>
+                    <a href="signup.html" class="footer-signup-btn">Sign Up</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 SmashHIT Badminton Facility — Move Your Way.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- ===== VUE SECTION ===== -->
+    <script>
+        const { createApp, ref } = Vue;
+
+        const app = createApp({
+            setup() {
+                const heroTitle = ref('Membership');
+                const heroSubtitle = ref('Get unlimited gym access with flexible plans that fit your lifestyle.');
+
+                const plans = ref([
+                    {
+                        name: 'Basic Plan',
+                        description: 'For casual gym-goers who want flexibility.',
+                        duration: '1 month',
+                        price: '₱500/month',
+                        badge: null,
+                        features: [
+                            'Full gym access',
+                            'Locker',
+                            'Free water'
+                        ],
+                        link: '#'
+                    },
+                    {
+                        name: 'Business Plan',
+                        description: 'For those who train consistently and want better value.',
+                        duration: '6 months',
+                        price: '₱450/month',
+                        badge: 'Save 10%',
+                        features: [
+                            'Full gym access',
+                            'Free water',
+                            '1 guest pass/month',
+                            '10% off courts'
+                        ],
+                        link: '#'
+                    },
+                    {
+                        name: 'Premium Plan',
+                        description: 'For serious fitness enthusiasts who train year-round.',
+                        duration: '1 year',
+                        price: '₱600/month',
+                        features: [
+                            'Priority booking',
+                            'Full gym access',
+                            'Free water',
+                            '1 guest pass/month',
+                            '15% off courts'
+                        ],
+                        link: '#'
+                    }
+                ]);
+
+                return {
+                    heroTitle,
+                    heroSubtitle,
+                    plans
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script> 
+</body>
+</html>
