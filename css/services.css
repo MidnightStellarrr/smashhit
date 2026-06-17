@@ -640,3 +640,137 @@ body {
         font-size: 0.9rem;
     }
 }
+
+/* Add this to the end of your services.css file */
+
+/* ===== FAQ SECTION ===== */
+.faq-section {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 4rem var(--section-padding) 6rem;
+}
+
+.faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.faq-header h2 {
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    color: #EFEEE8;
+    margin-bottom: 0.75rem;
+}
+
+.faq-header p {
+    font-size: 1.1rem;
+    color: rgba(239, 238, 232, 0.7);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.faq-item {
+    background: #1a1a1a;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.faq-item:hover {
+    border-color: rgba(239, 6, 6, 0.3);
+}
+
+.faq-item--open {
+    border-color: rgba(239, 6, 6, 0.4);
+    background: #1f0f0f;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    color: #EFEEE8;
+    font-weight: 600;
+    font-size: 1.05rem;
+    gap: 1rem;
+    user-select: none;
+}
+
+.faq-question i {
+    color: rgba(239, 238, 232, 0.5);
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.faq-question i.rotated {
+    transform: rotate(180deg);
+    color: #EF0606;
+}
+
+.faq-answer {
+    padding: 0 1.5rem 1.25rem;
+    color: rgba(239, 238, 232, 0.8);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.faq-answer p {
+    margin: 0;
+}
+
+/* ===== FAQ RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .faq-section {
+        padding: 3rem 1.5rem 5rem;
+    }
+
+    .faq-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .faq-header p {
+        font-size: 1rem;
+    }
+
+    .faq-question {
+        padding: 1rem 1.25rem;
+        font-size: 0.95rem;
+    }
+
+    .faq-answer {
+        padding: 0 1.25rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .faq-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .faq-question {
+        padding: 0.9rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .faq-answer {
+        padding: 0 1rem 0.9rem;
+        font-size: 0.85rem;
+    }
+}

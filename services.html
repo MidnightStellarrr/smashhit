@@ -91,6 +91,34 @@
             </div>
         </section>
 
+        <!-- ===== FAQ SECTION ===== -->
+        <section class="faq-section">
+            <div class="faq-container">
+                <div class="faq-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Find answers to the most common questions about our services.</p>
+                </div>
+
+                <div class="faq-list">
+                    <div 
+                        v-for="(faq, index) in faqItems" 
+                        :key="index"
+                        class="faq-item"
+                        :class="{ 'faq-item--open': faq.isOpen }"
+                        @click="toggleFaq(index)"
+                    >
+                        <div class="faq-question">
+                            <span>{{ faq.question }}</span>
+                            <i class="fas fa-chevron-down" :class="{ 'rotated': faq.isOpen }"></i>
+                        </div>
+                        <div class="faq-answer" v-show="faq.isOpen">
+                            <p>{{ faq.answer }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ===== FOOTER ===== -->
         <footer class="site-footer">
             <div class="footer-inner">
@@ -193,11 +221,45 @@
                     }
                 ]);
 
+                const faqItems = ref([
+                    {
+                        question: 'How do I book a badminton court?',
+                        answer: 'You can book a badminton court through our online booking system. Simply visit the "Book a Court" page, select your preferred date and time, and complete the payment process. You\'ll receive a confirmation email with your booking details.',
+                        isOpen: false
+                    },
+                    {
+                        question: 'How much does it cost to rent a court?',
+                        answer: 'Court rental rates vary depending on the time and day. Peak hours (evenings and weekends) are priced at ₱400 per hour, while off-peak hours (weekday mornings and afternoons) are ₱300 per hour. Members receive a 10% discount on all bookings.',
+                        isOpen: false
+                    },
+                    {
+                        question: 'Can I book a court without creating an account?',
+                        answer: 'Yes, you can book a court as a guest without creating an account. However, we recommend creating an account to enjoy faster booking, view your booking history, and receive exclusive member discounts and promotions.',
+                        isOpen: false
+                    },
+                    {
+                        question: 'Can I cancel or reschedule my booking?',
+                        answer: 'Yes, you can cancel or reschedule your booking up to 24 hours before your scheduled time without any penalty. Cancellations made within 24 hours may be subject to a cancellation fee. Please contact our support team for assistance with rescheduling.',
+                        isOpen: false
+                    },
+                    {
+                        question: 'Do you provide rackets and shuttlecocks?',
+                        answer: 'Yes, we offer racket and shuttlecock rentals at our facility. Rackets are available for ₱100 per session, and shuttlecocks are ₱50 per tube. We also have a pro shop where you can purchase your own equipment if you prefer.',
+                        isOpen: false
+                    }
+                ]);
+
+                const toggleFaq = (index) => {
+                    faqItems.value[index].isOpen = !faqItems.value[index].isOpen;
+                };
+
                 return {
                     heroTitle,
                     heroSubtitle,
                     whyItems,
-                    plans
+                    plans,
+                    faqItems,
+                    toggleFaq
                 };
             }
         });
