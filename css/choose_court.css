@@ -1,0 +1,551 @@
+/* ===== choose_court.css ===== */
+
+:root {
+    --content-width: 1400px;
+    --section-padding: 4rem;
+}
+
+/* ===== GLOBAL RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+    background: #000000;
+    font-family: 'Inter', sans-serif;
+    color: #EFEEE8;
+}
+
+/* ===== CHOOSE COURT SECTION ===== */
+.choose-court-section {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 6rem var(--section-padding) 8rem;
+}
+
+.court-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.court-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.court-header h2 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    color: #EFEEE8;
+    margin-bottom: 0.5rem;
+}
+
+.court-header p {
+    font-size: 1.1rem;
+    color: rgba(239, 238, 232, 0.6);
+}
+
+/* ===== COURT GRID ===== */
+.court-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.court-card {
+    background: #1a1a1a;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.court-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+.court-card--selected {
+    border-color: #EF0606;
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(239, 6, 6, 0.2);
+}
+
+.court-card--selected .view-btn {
+    background: #EF0606;
+    color: #ffffff;
+}
+
+.court-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.court-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(239, 6, 6, 0.4) 0%,
+        rgba(0, 0, 0, 0.7) 100%
+    );
+    z-index: 1;
+    transition: opacity 0.4s ease;
+}
+
+.court-card:hover .court-overlay {
+    opacity: 0;
+}
+
+.court-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    background: #22c55e;
+    color: #ffffff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.court-badge--unavailable {
+    background: #ef4444;
+}
+
+.court-info {
+    padding: 1rem 1.25rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.court-info h3 {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.view-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #EFEEE8;
+    padding: 0.4rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.view-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ===== COURT ACTIONS ===== */
+.court-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.back-btn,
+.next-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 2.5rem;
+    border-radius: 40px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+}
+
+.back-btn {
+    background: transparent;
+    color: #EFEEE8;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.next-btn {
+    background: #EF0606;
+    color: #ffffff;
+}
+
+.next-btn:hover:not(:disabled) {
+    background: #ff3333;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -8px rgba(239, 6, 6, 0.4);
+}
+
+.next-btn:disabled {
+    background: #444;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+    margin-top: 0;
+    background: radial-gradient(circle at top left, rgba(170, 0, 0, 0.95) 0%, rgba(105, 0, 0, 0.98) 44%, #4e0000 100%);
+    color: #ffffff;
+    padding: 3rem 0 1.6rem;
+}
+
+.footer-inner {
+    max-width: 1520px;
+    margin: 0 auto;
+    padding: 0 6vw;
+    display: grid;
+    grid-template-columns: 1.2fr 0.75fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.footer-brand h2 {
+    margin: 0 0 0.6rem;
+    font-size: clamp(2.6rem, 4vw, 4rem);
+    line-height: 0.95;
+}
+
+.footer-brand p {
+    margin: 0;
+    max-width: 19rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-socials {
+    display: flex;
+    gap: 1rem;
+    margin: 1.4rem 0 2rem;
+}
+
+.footer-socials a {
+    color: #ffffff;
+    font-size: 1.15rem;
+    text-decoration: none;
+}
+
+.footer-contact p {
+    margin: 0.55rem 0 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+}
+
+.footer-links h3 {
+    margin: 0 0 1.1rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+}
+
+.footer-links a {
+    display: block;
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    margin: 0 0 0.9rem;
+}
+
+.footer-signup {
+    padding-top: 0.35rem;
+}
+
+.footer-signup label {
+    display: block;
+    margin-bottom: 0.55rem;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.footer-signup input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.85);
+    background: transparent;
+    color: #ffffff;
+    padding: 0.45rem 0;
+    outline: none;
+}
+
+.footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.4rem;
+}
+
+.footer-login {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+}
+
+.footer-signup-btn {
+    background: #f0f0f0;
+    color: #4a0000;
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.footer-bottom {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 2rem;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+@media (max-width: 960px) {
+    .footer-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-links {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-bottom {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-links {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-actions {
+        justify-content: flex-start;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .court-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .court-header h2 {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .choose-court-section {
+        padding: 4rem 1.5rem 6rem;
+    }
+
+    .court-header h2 {
+        font-size: 2.2rem;
+    }
+
+    .court-header p {
+        font-size: 0.95rem;
+    }
+
+    .court-grid {
+        grid-template-columns: 1fr 1fr;
+        max-width: 500px;
+        margin: 0 auto 2.5rem;
+    }
+
+    .court-image {
+        height: 160px;
+    }
+
+    .court-actions {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .back-btn,
+    .next-btn {
+        justify-content: center;
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .court-grid {
+        grid-template-columns: 1fr;
+        max-width: 350px;
+    }
+
+    .court-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .court-image {
+        height: 140px;
+    }
+
+    .court-info h3 {
+        font-size: 0.95rem;
+    }
+
+    .view-btn {
+        padding: 0.3rem 1rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* ===== RESPONSIVE (navbar & hero) ===== */
+@media (min-width: 1400px) {
+    .navbar {
+        padding: 1.2rem 6vw;
+    }
+    .nav-links {
+        gap: 3rem;
+    }
+    .nav-links a {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 0.8rem 2rem;
+    }
+    .logo img {
+        height: 40px;
+    }
+    .nav-links {
+        gap: 1.5rem;
+    }
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+    .auth-buttons {
+        gap: 1rem;
+    }
+    .auth-buttons a {
+        font-size: 0.85rem;
+    }
+    .auth-buttons a:last-child {
+        padding: 0.35rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 860px) {
+    .navbar {
+        padding: 0.8rem 1.5rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .logo {
+        margin-right: 1.5rem;
+    }
+    .logo img {
+        height: 35px;
+    }
+    .nav-links {
+        gap: 1.2rem;
+    }
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+    .auth-buttons {
+        gap: 0.8rem;
+    }
+    .auth-buttons a {
+        font-size: 0.8rem;
+    }
+    .auth-buttons a:last-child {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.75rem;
+    }
+    .hero-court-content h1 {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+    }
+    .hero-court-content p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .navbar {
+        flex-direction: column;
+        gap: 0.6rem;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 0.8rem 1rem;
+        align-items: center;
+    }
+    .logo {
+        margin-right: 0;
+    }
+    .logo img {
+        height: 35px;
+    }
+    .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .nav-links a {
+        font-size: 0.8rem;
+    }
+    .auth-buttons {
+        margin-left: 0;
+        gap: 0.8rem;
+    }
+    .auth-buttons a {
+        font-size: 0.8rem;
+    }
+    .auth-buttons a:last-child {
+        padding: 0.25rem 0.8rem;
+        font-size: 0.75rem;
+    }
+    .hero-court-content h1 {
+        font-size: 2.2rem;
+    }
+    .hero-court-content p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-court-content h1 {
+        font-size: 1.8rem;
+    }
+    .hero-court-content p {
+        font-size: 0.9rem;
+    }
+}
