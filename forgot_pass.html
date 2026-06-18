@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forgot Password | SmashHIT</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Separate CSS file -->
+    <link rel="stylesheet" href="css/forgot_pass.css" />
+</head>
+<body>
+
+    <div id="app">
+        <!-- ===== FORGOT PASSWORD SECTION ===== -->
+        <section class="forgot-section">
+            <img src="images/aunthentication_bg.png" alt="Forgot Password Background" class="forgot-bg-image" />
+            <div class="forgot-overlay"></div>
+            <div class="forgot-container">
+                <div class="forgot-card">
+                    <h1 class="forgot-title">FORGOT PASSWORD</h1>
+                    <p class="forgot-subtitle">Enter your email address and we'll send you a link to reset your password.</p>
+
+                    <form @submit.prevent="handleSubmit" class="forgot-form">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                v-model="email" 
+                                placeholder="Enter your email"
+                                required
+                            />
+                        </div>
+
+                        <button type="submit" class="forgot-btn">Send Reset Link</button>
+                    </form>
+
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+
+                    <p class="login-link">
+                        Remember your password? <a href="login.html">Log in here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== VUE SECTION ===== -->
+    <script>
+        const { createApp, ref } = Vue;
+
+        const app = createApp({
+            setup() {
+                const email = ref('');
+
+                const handleSubmit = () => {
+                    if (email.value) {
+                        // Store email for the confirmation page
+                        sessionStorage.setItem('resetEmail', email.value);
+                        window.location.href = 'password_reset_sent.html';
+                    } else {
+                        alert('Please enter your email address.');
+                    }
+                };
+
+                return {
+                    email,
+                    handleSubmit
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>

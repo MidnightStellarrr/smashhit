@@ -1,0 +1,273 @@
+/* ===== forgot_pass.css ===== */
+
+:root {
+    --content-width: 1400px;
+    --section-padding: 4rem;
+}
+
+/* ===== GLOBAL RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+    background: #000000;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+}
+
+/* ===== FORGOT PASSWORD SECTION ===== */
+.forgot-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem 4rem;
+    overflow: hidden;
+}
+
+.forgot-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+}
+
+.forgot-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 1;
+}
+
+.forgot-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 560px;
+}
+
+/* ===== FORGOT CARD ===== */
+.forgot-card {
+    border-radius: 16px;
+    padding: 3rem 2.5rem 2.5rem;
+    background: transparent;
+}
+
+.forgot-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.forgot-subtitle {
+    font-size: 0.9rem;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+/* ===== FORGOT FORM ===== */
+.forgot-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+}
+
+.form-group input[type="email"] {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    padding: 0.85rem 1rem;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-group input:focus {
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* ===== FORGOT BUTTON ===== */
+.forgot-btn {
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 0.5rem;
+}
+
+.forgot-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -8px rgba(255, 255, 255, 0.3);
+}
+
+/* ===== DIVIDER ===== */
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem 0 1.25rem;
+    position: relative;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.divider span {
+    background: transparent;
+    padding: 0 1rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    position: relative;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ===== LOGIN LINK ===== */
+.login-link {
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.5rem;
+}
+
+.login-link a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+    color: #ff3333;
+    text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .forgot-section {
+        padding: 2rem;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .forgot-section {
+        padding: 1.5rem;
+        justify-content: center;
+    }
+
+    .forgot-card {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+
+    .forgot-title {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+
+    .forgot-subtitle {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    .form-group input[type="email"] {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .forgot-section {
+        padding: 1rem;
+        justify-content: center;
+    }
+
+    .forgot-card {
+        padding: 1.5rem 1rem 1.25rem;
+        border-radius: 12px;
+    }
+
+    .forgot-title {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .forgot-subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .form-group input[type="email"] {
+        padding: 0.65rem 0.85rem;
+        font-size: 0.85rem;
+    }
+
+    .forgot-btn {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .divider span {
+        font-size: 0.7rem;
+    }
+
+    .login-link {
+        font-size: 0.8rem;
+    }
+}
