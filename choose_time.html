@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Choose Your Court | SmashHIT</title>
+    <title>Choose Time Slot | SmashHIT</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
@@ -13,49 +13,54 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <!-- Separate CSS file -->
-    <link rel="stylesheet" href="css/choose_court.css" />
+    <link rel="stylesheet" href="css/choose_time.css" />
 </head>
 <body>
 
     <div id="app">
-        <!-- ===== CHOOSE COURT SECTION ===== -->
-        <section class="choose-court-section">
-            <div class="court-container">
-                <div class="court-header">
-                    <h2>Choose Your Court</h2>
-                    <p>{{ availableDate }}</p>
+        <!-- ===== CHOOSE TIME SECTION ===== -->
+        <section class="choose-time-section">
+            <div class="time-container">
+                <div class="time-header">
+                    <h2>Choose Your Time Slot</h2>
+                    <p>{{ dateInfo }}</p>
                 </div>
 
-                <div class="court-grid">
+                <div class="time-grid">
                     <div 
-                        v-for="(court, index) in courts" 
+                        v-for="(slot, index) in timeSlots" 
                         :key="index"
-                        class="court-card"
-                        :class="{ 'court-card--selected': selectedCourt === index }"
-                        @click="selectCourt(index)"
+                        class="time-card"
+                        :class="{ 
+                            'time-card--selected': slot.selected,
+                            'time-card--booked': slot.booked
+                        }"
+                        @click="toggleSlot(index)"
                     >
-                        <div class="court-image" :style="{ backgroundImage: `url('images/badminton_courts.jpg')` }">
-                            <div class="court-overlay"></div>
-                            <div class="court-badge" v-if="court.available">Available</div>
-                            <div class="court-badge court-badge--unavailable" v-else>Booked</div>
-                        </div>
-                        <div class="court-info">
-                            <h3>{{ court.name }}</h3>
-                            <button class="view-btn" @click.stop="viewCourt(index)">View</button>
+                        <div class="time-slot">
+                            <span class="time-label">{{ slot.time }}</span>
+                            <span class="time-status" v-if="slot.booked">Booked</span>
+                            <span class="time-status time-status--selected" v-else-if="slot.selected">Selected</span>
+                            <span class="time-status time-status--available" v-else>Available</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="court-actions">
+                <div class="time-summary" v-if="selectedSlots.length > 0">
+                    <p><strong>Selected Slots:</strong> {{ selectedSlots.join(', ') }}</p>
+                    <p><strong>Total Hours:</strong> {{ selectedSlots.length }} hour(s)</p>
+                </div>
+
+                <div class="time-actions">
                     <button class="back-btn" @click="goBack">
                         <i class="fas fa-arrow-left"></i> Back
                     </button>
                     <button 
                         class="next-btn" 
                         @click="goNext"
-                        :disabled="selectedCourt === null"
+                        :disabled="selectedSlots.length === 0"
                     >
-                        Next <i class="fas fa-arrow-right"></i>
+                        Confirm Booking <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
@@ -121,68 +126,77 @@
 
         const app = createApp({
             setup() {
-                const heroTitle = ref('Choose Your Court');
-                const heroSubtitle = ref('Select your preferred court and time slot.');
+                const dateInfo = ref('');
+                const courtInfo = ref('');
 
-                const selectedCourt = ref(null);
-                const availableDate = ref('');
-
-                const courts = ref([
-                    { name: 'Court 1', available: true },
-                    { name: 'Court 2', available: true },
-                    { name: 'Court 3', available: false },
-                    { name: 'Court 4', available: true }
+                const timeSlots = ref([
+                    { time: '8:00 AM - 9:00 AM', selected: false, booked: false },
+                    { time: '9:00 AM - 10:00 AM', selected: false, booked: false },
+                    { time: '10:00 AM - 11:00 AM', selected: false, booked: false },
+                    { time: '11:00 AM - 12:00 PM', selected: false, booked: false },
+                    { time: '12:00 PM - 1:00 PM', selected: false, booked: true },
+                    { time: '1:00 PM - 2:00 PM', selected: false, booked: true },
+                    { time: '2:00 PM - 3:00 PM', selected: false, booked: false },
+                    { time: '3:00 PM - 4:00 PM', selected: false, booked: false },
+                    { time: '4:00 PM - 5:00 PM', selected: false, booked: false },
+                    { time: '5:00 PM - 6:00 PM', selected: false, booked: false },
+                    { time: '6:00 PM - 7:00 PM', selected: false, booked: false },
+                    { time: '7:00 PM - 8:00 PM', selected: false, booked: false }
                 ]);
 
+                const selectedSlots = computed(() => {
+                    return timeSlots.value
+                        .filter(slot => slot.selected)
+                        .map(slot => slot.time);
+                });
+
                 onMounted(() => {
-                    // Get the selected date from sessionStorage
+                    // Get selected date from sessionStorage
                     const savedDate = sessionStorage.getItem('selectedDate');
+                    const savedCourt = sessionStorage.getItem('selectedCourt');
+                    
                     if (savedDate) {
                         const date = new Date(savedDate);
-                        availableDate.value = date.toLocaleDateString('en-US', { 
+                        dateInfo.value = date.toLocaleDateString('en-US', { 
                             weekday: 'long', 
                             year: 'numeric', 
                             month: 'long', 
                             day: 'numeric' 
                         });
                     } else {
-                        availableDate.value = 'Select a date to see available courts';
+                        dateInfo.value = 'Select a date to see available time slots';
+                    }
+
+                    if (savedCourt) {
+                        courtInfo.value = savedCourt;
                     }
                 });
 
-                const selectCourt = (index) => {
-                    if (courts.value[index].available) {
-                        selectedCourt.value = index;
-                    }
-                };
-
-                const viewCourt = (index) => {
-                    if (courts.value[index].available) {
-                        selectedCourt.value = index;
+                const toggleSlot = (index) => {
+                    if (!timeSlots.value[index].booked) {
+                        timeSlots.value[index].selected = !timeSlots.value[index].selected;
                     }
                 };
 
                 const goBack = () => {
-                    window.location.href = 'book_a_court.html';
+                    window.location.href = 'choose_court.html';
                 };
 
                 const goNext = () => {
-                    if (selectedCourt.value !== null) {
-                        const courtName = courts.value[selectedCourt.value].name;
-                        sessionStorage.setItem('selectedCourt', courtName);
-                        // Redirect to choose_time.html
-                        window.location.href = 'choose_time.html';
+                    if (selectedSlots.value.length > 0) {
+                        const slots = selectedSlots.value;
+                        sessionStorage.setItem('selectedSlots', JSON.stringify(slots));
+                        // Redirect to confirm_booking.html
+                        window.location.href = 'confirm_booking.html';
                     }
                 };
 
                 return {
-                    heroTitle,
-                    heroSubtitle,
-                    selectedCourt,
-                    availableDate,
-                    courts,
-                    selectCourt,
-                    viewCourt,
+                    dateInfo,
+                    courtInfo,
+                    timeSlots,
+                    selectedSlots,
+                    toggleSlot,
                     goBack,
                     goNext
                 };

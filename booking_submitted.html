@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking Submitted | SmashHIT</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Separate CSS file -->
+    <link rel="stylesheet" href="css/booking_submitted.css" />
+</head>
+<body>
+
+    <div id="app">
+        <!-- ===== BOOKING SUBMITTED SECTION ===== -->
+        <section class="submitted-section">
+            <div class="submitted-container">
+                <!-- Success Icon -->
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+
+                <h1 class="submitted-title">Booking Submitted</h1>
+                <p class="submitted-message">
+                    Pending verification. We'll notify you once confirmed.
+                </p>
+
+                <!-- Receipt Details -->
+                <div class="receipt">
+                    <div class="receipt-header">
+                        <h3>Booking Receipt</h3>
+                        <span class="receipt-status">Pending</span>
+                    </div>
+
+                    <div class="receipt-body">
+                        <div class="receipt-row">
+                            <span class="receipt-label">Booking ID:</span>
+                            <span class="receipt-value">{{ bookingId }}</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">Date:</span>
+                            <span class="receipt-value">{{ bookingDate }}</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">Court:</span>
+                            <span class="receipt-value">{{ courtName }}</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">Time:</span>
+                            <span class="receipt-value">{{ timeSlots }}</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">Hours:</span>
+                            <span class="receipt-value">{{ totalHours }} hour(s)</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">Payment:</span>
+                            <span class="receipt-value">{{ paymentMethod }}</span>
+                        </div>
+                        <div class="receipt-row receipt-total">
+                            <span class="receipt-label">Total:</span>
+                            <span class="receipt-value">{{ totalPrice }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="submitted-actions">
+                    <button class="book-more-btn" @click="bookMore">
+                        <i class="fas fa-plus-circle"></i> Book More
+                    </button>
+                    <button class="home-btn" @click="goHome">
+                        <i class="fas fa-home"></i> Go to homepage
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>SmashHIT</h2>
+                <p>Welcome to SmashHIT — where you can play badminton, hit the gym, or do both.</p>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <div class="footer-contact">
+                    <p>smashHIT@gmail.com</p>
+                    <p>097361274809</p>
+                    <p>BARANGAY, Quezon St, New Pandan, Panabo, 8105</p>
+                    <p>Davao del Norte</p>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div>
+                    <h3>MAIN</h3>
+                    <a href="homepage.html">Home</a>
+                    <a href="services.html">Services</a>
+                    <a href="about_us.html">About Us</a>
+                    <a href="announcements.html">Announcements</a>
+                </div>
+
+                <div>
+                    <h3>SUPPORT</h3>
+                    <a href="contacts.html">Contact</a>
+                    <a href="faq.html">FAQ</a>
+                </div>
+            </div>
+
+            <div class="footer-signup">
+                <label for="footer-email">Enter e-mail address</label>
+                <input id="footer-email" type="email" placeholder="">
+
+                <div class="footer-actions">
+                    <a href="login.html" class="footer-login">Login</a>
+                    <a href="signup.html" class="footer-signup-btn">Sign Up</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 SmashHIT Badminton Facility — Move Your Way.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== VUE SECTION ===== -->
+    <script>
+        const { createApp, ref, onMounted } = Vue;
+
+        const app = createApp({
+            setup() {
+                const bookingId = ref('');
+                const bookingDate = ref('');
+                const courtName = ref('');
+                const timeSlots = ref('');
+                const totalHours = ref(0);
+                const totalPrice = ref('');
+                const paymentMethod = ref('');
+
+                const generateBookingId = () => {
+                    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                    let result = '';
+                    for (let i = 0; i < 8; i++) {
+                        result += chars.charAt(Math.floor(Math.random() * chars.length));
+                    }
+                    return 'SH-' + result;
+                };
+
+                onMounted(() => {
+                    // Generate booking ID
+                    bookingId.value = generateBookingId();
+
+                    // Get booking data from sessionStorage
+                    const savedData = sessionStorage.getItem('bookingData');
+                    if (savedData) {
+                        const data = JSON.parse(savedData);
+                        bookingDate.value = data.date || 'No date selected';
+                        courtName.value = data.court || 'No court selected';
+                        timeSlots.value = data.timeSlots || 'No time slots selected';
+                        totalHours.value = data.totalHours || 0;
+                        totalPrice.value = data.totalPrice || '₱0';
+                        paymentMethod.value = data.paymentMethod === 'inperson' ? 'In person' : 'GCash';
+                    } else {
+                        // Fallback: try to get individual items
+                        const savedDate = sessionStorage.getItem('selectedDate');
+                        if (savedDate) {
+                            const date = new Date(savedDate);
+                            bookingDate.value = date.toLocaleDateString('en-US', { 
+                                weekday: 'long', 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric' 
+                            });
+                        }
+                        
+                        const savedCourt = sessionStorage.getItem('selectedCourt');
+                        if (savedCourt) {
+                            courtName.value = savedCourt;
+                        }
+                        
+                        const savedSlots = sessionStorage.getItem('selectedSlots');
+                        if (savedSlots) {
+                            const slots = JSON.parse(savedSlots);
+                            timeSlots.value = slots.join(', ');
+                            totalHours.value = slots.length;
+                            totalPrice.value = `₱${(slots.length * 300).toLocaleString()}`;
+                        }
+                    }
+                });
+
+                const bookMore = () => {
+                    // Clear previous booking data
+                    sessionStorage.removeItem('selectedDate');
+                    sessionStorage.removeItem('selectedCourt');
+                    sessionStorage.removeItem('selectedSlots');
+                    sessionStorage.removeItem('bookingData');
+                    window.location.href = 'book_a_court.html';
+                };
+
+                const goHome = () => {
+                    window.location.href = 'homepage.html';
+                };
+
+                return {
+                    bookingId,
+                    bookingDate,
+                    courtName,
+                    timeSlots,
+                    totalHours,
+                    totalPrice,
+                    paymentMethod,
+                    bookMore,
+                    goHome
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>

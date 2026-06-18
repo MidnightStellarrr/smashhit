@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirm Booking | SmashHIT</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Separate CSS file -->
+    <link rel="stylesheet" href="css/confirm_booking.css" />
+</head>
+<body>
+
+    <div id="app">
+        <!-- ===== CONFIRM BOOKING SECTION ===== -->
+        <section class="confirm-section">
+            <div class="confirm-container">
+                <!-- Receipt Header -->
+                <div class="receipt-header">
+                    <h2>Confirm Your Booking</h2>
+                    <p class="receipt-subtitle">Time slots for {{ courtName }}</p>
+                </div>
+
+                <!-- Receipt Body -->
+                <div class="receipt-body">
+                    <div class="receipt-row">
+                        <span class="receipt-label">Date</span>
+                        <span class="receipt-value">{{ bookingDate }}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-label">Court</span>
+                        <span class="receipt-value">{{ courtName }}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-label">Time</span>
+                        <span class="receipt-value">{{ timeSlots }}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-label">Playtime hours</span>
+                        <span class="receipt-value">{{ totalHours }} hour(s)</span>
+                    </div>
+                    <div class="receipt-row receipt-total">
+                        <span class="receipt-label">Total price</span>
+                        <span class="receipt-value">{{ totalPrice }}</span>
+                    </div>
+                </div>
+
+                <!-- Payment Section -->
+                <div class="payment-section">
+                    <h3>Payment method</h3>
+                    <div class="payment-options">
+                        <label class="payment-option" :class="{ 'payment-option--selected': paymentMethod === 'inperson' }">
+                            <input type="radio" value="inperson" v-model="paymentMethod" />
+                            <span class="radio-custom"></span>
+                            In person
+                        </label>
+                        <label class="payment-option" :class="{ 'payment-option--selected': paymentMethod === 'gcash' }">
+                            <input type="radio" value="gcash" v-model="paymentMethod" />
+                            <span class="radio-custom"></span>
+                            Gcash
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="receipt-actions">
+                    <button class="back-btn" @click="goBack">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button 
+                        class="confirm-btn" 
+                        @click="confirmBooking"
+                        :disabled="!paymentMethod"
+                    >
+                        Confirm Booking <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>SmashHIT</h2>
+                <p>Welcome to SmashHIT — where you can play badminton, hit the gym, or do both.</p>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <div class="footer-contact">
+                    <p>smashHIT@gmail.com</p>
+                    <p>097361274809</p>
+                    <p>BARANGAY, Quezon St, New Pandan, Panabo, 8105</p>
+                    <p>Davao del Norte</p>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div>
+                    <h3>MAIN</h3>
+                    <a href="homepage.html">Home</a>
+                    <a href="services.html">Services</a>
+                    <a href="about_us.html">About Us</a>
+                    <a href="announcements.html">Announcements</a>
+                </div>
+
+                <div>
+                    <h3>SUPPORT</h3>
+                    <a href="contacts.html">Contact</a>
+                    <a href="faq.html">FAQ</a>
+                </div>
+            </div>
+
+            <div class="footer-signup">
+                <label for="footer-email">Enter e-mail address</label>
+                <input id="footer-email" type="email" placeholder="">
+
+                <div class="footer-actions">
+                    <a href="login.html" class="footer-login">Login</a>
+                    <a href="signup.html" class="footer-signup-btn">Sign Up</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 SmashHIT Badminton Facility — Move Your Way.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== VUE SECTION ===== -->
+    <script>
+        const { createApp, ref, onMounted } = Vue;
+
+        const app = createApp({
+            setup() {
+                const bookingDate = ref('');
+                const courtName = ref('');
+                const timeSlots = ref('');
+                const totalHours = ref(0);
+                const totalPrice = ref('');
+                const paymentMethod = ref(null);
+
+                const PRICE_PER_HOUR = 300;
+
+                onMounted(() => {
+                    // Get selected date from sessionStorage
+                    const savedDate = sessionStorage.getItem('selectedDate');
+                    if (savedDate) {
+                        const date = new Date(savedDate);
+                        bookingDate.value = date.toLocaleDateString('en-US', { 
+                            weekday: 'long', 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        });
+                    } else {
+                        bookingDate.value = 'No date selected';
+                    }
+
+                    // Get selected court from sessionStorage
+                    const savedCourt = sessionStorage.getItem('selectedCourt');
+                    if (savedCourt) {
+                        courtName.value = savedCourt;
+                    } else {
+                        courtName.value = 'No court selected';
+                    }
+
+                    // Get selected time slots from sessionStorage
+                    const savedSlots = sessionStorage.getItem('selectedSlots');
+                    if (savedSlots) {
+                        const slots = JSON.parse(savedSlots);
+                        timeSlots.value = slots.join(', ');
+                        totalHours.value = slots.length;
+                        totalPrice.value = `₱${(slots.length * PRICE_PER_HOUR).toLocaleString()}`;
+                    } else {
+                        timeSlots.value = 'No time slots selected';
+                        totalHours.value = 0;
+                        totalPrice.value = '₱0';
+                    }
+                });
+
+                const goBack = () => {
+                    window.location.href = 'choose_time.html';
+                };
+
+                const confirmBooking = () => {
+                    if (paymentMethod.value) {
+                        const bookingData = {
+                            date: bookingDate.value,
+                            court: courtName.value,
+                            timeSlots: timeSlots.value,
+                            totalHours: totalHours.value,
+                            totalPrice: totalPrice.value,
+                            paymentMethod: paymentMethod.value
+                        };
+                        sessionStorage.setItem('bookingData', JSON.stringify(bookingData));
+                        window.location.href = 'booking_submitted.html';
+                    }
+                };
+
+                return {
+                    bookingDate,
+                    courtName,
+                    timeSlots,
+                    totalHours,
+                    totalPrice,
+                    paymentMethod,
+                    goBack,
+                    confirmBooking
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>

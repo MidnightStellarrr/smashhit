@@ -1,0 +1,514 @@
+/* ===== confirm_booking.css ===== */
+
+:root {
+    --content-width: 1400px;
+    --section-padding: 4rem;
+}
+
+/* ===== GLOBAL RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+    background: #000000;
+    font-family: 'Inter', sans-serif;
+    color: #EFEEE8;
+}
+
+/* ===== CONFIRM BOOKING SECTION ===== */
+.confirm-section {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 6rem var(--section-padding) 8rem;
+}
+
+.confirm-container {
+    max-width: 520px;
+    width: 100%;
+    margin: 0 auto;
+    background: #1a1a1a;
+    border-radius: 16px;
+    padding: 2rem 2rem 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== RECEIPT HEADER ===== */
+.receipt-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px dashed rgba(255, 255, 255, 0.08);
+}
+
+.receipt-header h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    color: #EFEEE8;
+    margin-bottom: 0.25rem;
+}
+
+.receipt-header .receipt-subtitle {
+    font-size: 0.85rem;
+    color: rgba(239, 238, 232, 0.4);
+}
+
+/* ===== RECEIPT BODY ===== */
+.receipt-body {
+    margin-bottom: 1.25rem;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.receipt-row:last-child {
+    border-bottom: none;
+}
+
+.receipt-label {
+    color: rgba(239, 238, 232, 0.5);
+    font-size: 0.8rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.receipt-value {
+    color: #EFEEE8;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: right;
+}
+
+.receipt-total {
+    padding-top: 0.6rem;
+    margin-top: 0.3rem;
+    border-top: 2px solid rgba(239, 6, 6, 0.2);
+}
+
+.receipt-total .receipt-label {
+    color: #EFEEE8;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.receipt-total .receipt-value {
+    color: #EF0606;
+    font-weight: 800;
+    font-size: 1.3rem;
+}
+
+/* ===== PAYMENT SECTION ===== */
+.payment-section {
+    padding-top: 1.25rem;
+    border-top: 2px dashed rgba(255, 255, 255, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.payment-section h3 {
+    color: rgba(239, 238, 232, 0.4);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: rgba(239, 238, 232, 0.6);
+    font-size: 0.9rem;
+}
+
+.payment-option:hover {
+    color: #EFEEE8;
+}
+
+.payment-option--selected {
+    color: #EFEEE8;
+}
+
+.payment-option input[type="radio"] {
+    display: none;
+}
+
+.radio-custom {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.payment-option--selected .radio-custom {
+    border-color: #EF0606;
+}
+
+.payment-option--selected .radio-custom::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #EF0606;
+}
+
+/* ===== RECEIPT ACTIONS ===== */
+.receipt-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 2px dashed rgba(255, 255, 255, 0.08);
+}
+
+.back-btn,
+.confirm-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    flex: 1;
+}
+
+.back-btn {
+    background: transparent;
+    color: #EFEEE8;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.confirm-btn {
+    background: #EF0606;
+    color: #ffffff;
+}
+
+.confirm-btn:hover:not(:disabled) {
+    background: #ff3333;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -8px rgba(239, 6, 6, 0.4);
+}
+
+.confirm-btn:disabled {
+    background: #444;
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+    margin-top: 0;
+    background: radial-gradient(circle at top left, rgba(170, 0, 0, 0.95) 0%, rgba(105, 0, 0, 0.98) 44%, #4e0000 100%);
+    color: #ffffff;
+    padding: 3rem 0 1.6rem;
+}
+
+.footer-inner {
+    max-width: 1520px;
+    margin: 0 auto;
+    padding: 0 6vw;
+    display: grid;
+    grid-template-columns: 1.2fr 0.75fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.footer-brand h2 {
+    margin: 0 0 0.6rem;
+    font-size: clamp(2.6rem, 4vw, 4rem);
+    line-height: 0.95;
+}
+
+.footer-brand p {
+    margin: 0;
+    max-width: 19rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-socials {
+    display: flex;
+    gap: 1rem;
+    margin: 1.4rem 0 2rem;
+}
+
+.footer-socials a {
+    color: #ffffff;
+    font-size: 1.15rem;
+    text-decoration: none;
+}
+
+.footer-contact p {
+    margin: 0.55rem 0 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+}
+
+.footer-links h3 {
+    margin: 0 0 1.1rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+}
+
+.footer-links a {
+    display: block;
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    margin: 0 0 0.9rem;
+}
+
+.footer-signup {
+    padding-top: 0.35rem;
+}
+
+.footer-signup label {
+    display: block;
+    margin-bottom: 0.55rem;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.footer-signup input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.85);
+    background: transparent;
+    color: #ffffff;
+    padding: 0.45rem 0;
+    outline: none;
+}
+
+.footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.4rem;
+}
+
+.footer-login {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+}
+
+.footer-signup-btn {
+    background: #f0f0f0;
+    color: #4a0000;
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.footer-bottom {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 2rem;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+@media (max-width: 960px) {
+    .footer-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-links {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-bottom {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-links {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-actions {
+        justify-content: flex-start;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .confirm-section {
+        padding: 4rem 1.5rem 6rem;
+    }
+
+    .confirm-container {
+        padding: 1.5rem 1.25rem;
+        border-radius: 14px;
+    }
+
+    .receipt-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .receipt-body {
+        padding: 0;
+    }
+
+    .receipt-row {
+        padding: 0.4rem 0;
+    }
+
+    .receipt-label {
+        font-size: 0.7rem;
+    }
+
+    .receipt-value {
+        font-size: 0.75rem;
+    }
+
+    .receipt-total .receipt-label {
+        font-size: 0.75rem;
+    }
+
+    .receipt-total .receipt-value {
+        font-size: 1.1rem;
+    }
+
+    .payment-section {
+        padding-top: 1rem;
+    }
+
+    .payment-options {
+        gap: 1.5rem;
+    }
+
+    .payment-option {
+        font-size: 0.8rem;
+    }
+
+    .receipt-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .back-btn,
+    .confirm-btn {
+        width: 100%;
+        padding: 0.6rem 1.25rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .confirm-section {
+        padding: 3rem 1rem 4rem;
+    }
+
+    .confirm-container {
+        padding: 1.25rem 1rem;
+        border-radius: 12px;
+    }
+
+    .receipt-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .receipt-header .receipt-subtitle {
+        font-size: 0.75rem;
+    }
+
+    .receipt-row {
+        padding: 0.35rem 0;
+    }
+
+    .receipt-label {
+        font-size: 0.65rem;
+    }
+
+    .receipt-value {
+        font-size: 0.7rem;
+    }
+
+    .receipt-total .receipt-label {
+        font-size: 0.7rem;
+    }
+
+    .receipt-total .receipt-value {
+        font-size: 1rem;
+    }
+
+    .payment-section h3 {
+        font-size: 0.65rem;
+    }
+
+    .payment-options {
+        gap: 1rem;
+    }
+
+    .payment-option {
+        font-size: 0.75rem;
+    }
+
+    .radio-custom {
+        width: 16px;
+        height: 16px;
+    }
+
+    .payment-option--selected .radio-custom::after {
+        width: 6px;
+        height: 6px;
+    }
+
+    .back-btn,
+    .confirm-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+    }
+}
