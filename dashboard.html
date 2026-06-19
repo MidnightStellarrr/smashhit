@@ -82,10 +82,6 @@
                         <p>Welcome back, User!</p>
                     </div>
                     <div class="top-bar-right">
-                        <div class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input type="text" placeholder="Search..." />
-                        </div>
                         <div class="top-bar-user">
                             <!-- Notification Button -->
                             <div class="notification-wrapper">
@@ -121,10 +117,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="icon-btn" title="Settings">
+                            
+                            <!-- Settings Icon - Clickable -->
+                            <button class="icon-btn" title="Settings" @click="goToSettings">
                                 <i class="fas fa-cog"></i>
                             </button>
-                            <div class="user-profile">
+                            
+                            <!-- User Profile -->
+                            <div class="user-profile" @click="goToProfile">
                                 <div class="user-avatar">
                                     <img src="images/default-avatar.png" alt="User Avatar" />
                                 </div>
@@ -320,7 +320,6 @@
                 const toggleNotifications = (event) => {
                     event.stopPropagation();
                     showNotifications.value = !showNotifications.value;
-                    console.log('Toggled:', showNotifications.value); // Debug log
                 };
 
                 const markAllRead = () => {
@@ -333,6 +332,15 @@
                     if (wrapper && !wrapper.contains(event.target)) {
                         showNotifications.value = false;
                     }
+                };
+
+                // Navigation methods
+                const goToSettings = () => {
+                    window.location.href = 'settings.html';
+                };
+
+                const goToProfile = () => {
+                    window.location.href = 'profile.html';
                 };
 
                 onMounted(() => {
@@ -482,7 +490,9 @@
                     notifications,
                     unreadCount,
                     toggleNotifications,
-                    markAllRead
+                    markAllRead,
+                    goToSettings,
+                    goToProfile
                 };
             }
         });
