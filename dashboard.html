@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | SmashHIT</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Separate CSS file -->
+    <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+    <div id="app">
+        <!-- ===== DASHBOARD LAYOUT ===== -->
+        <div class="dashboard-container">
+
+            <!-- ===== SIDEBAR ===== -->
+            <aside class="sidebar">
+                <div class="sidebar-logo">
+                    <img src="images/logo_sample.png" alt="SmashHIT Logo" />
+                    <span>SmashHIT</span>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <!-- Main Menu Group -->
+                    <div class="nav-group">
+                        <span class="nav-group-label">Main Menu</span>
+                        <a href="#" class="nav-link active">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>My Bookings</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-id-card"></i>
+                            <span>Membership</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Homepage</span>
+                        </a>
+                    </div>
+
+                    <!-- Account Group -->
+                    <div class="nav-group">
+                        <span class="nav-group-label">Account</span>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help</span>
+                        </a>
+                    </div>
+                </nav>
+
+                <!-- Logout at bottom -->
+                <div class="sidebar-footer">
+                    <a href="#" class="nav-link logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- ===== MAIN CONTENT ===== -->
+            <main class="main-content">
+                <!-- Top Bar -->
+                <header class="top-bar">
+                    <div class="top-bar-left">
+                        <h1>Dashboard</h1>
+                        <p>Welcome back, User!</p>
+                    </div>
+                    <div class="top-bar-right">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search..." />
+                        </div>
+                        <div class="top-bar-user">
+                            <button class="icon-btn" title="Notifications">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </button>
+                            <button class="icon-btn" title="Settings">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img src="images/default-avatar.png" alt="User Avatar" />
+                                </div>
+                                <div class="user-info">
+                                    <span class="user-name">John Doe</span>
+                                    <span class="user-role">Member</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Upcoming Tournaments -->
+                <section class="tournaments-section">
+                    <div class="section-header">
+                        <h2>Upcoming Tournaments</h2>
+                        <a href="#" class="view-all">
+                            View All <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="tournament-cards">
+                        <div class="tournament-card" style="background-image: url('images/badminton_class.jpg');">
+                            <div class="tournament-overlay"></div>
+                            <div class="tournament-date">
+                                <span class="month">JUN</span>
+                                <span class="day">28</span>
+                            </div>
+                            <div class="tournament-info">
+                                <h4>SmashHIT Summer Open 2026</h4>
+                                <p>Mixed Doubles • Registration Open</p>
+                            </div>
+                            <a href="#" class="tournament-btn">Register</a>
+                        </div>
+                        <div class="tournament-card" style="background-image: url('images/badminton_class.jpg');">
+                            <div class="tournament-overlay"></div>
+                            <div class="tournament-date">
+                                <span class="month">JUL</span>
+                                <span class="day">12</span>
+                            </div>
+                            <div class="tournament-info">
+                                <h4>Monthly Singles Tournament</h4>
+                                <p>Men's Singles • Registration Open</p>
+                            </div>
+                            <a href="#" class="tournament-btn">Register</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Next Game Section -->
+                <section class="next-game-section" v-if="nextGame">
+                    <div class="next-game-card" :style="{ backgroundImage: `url('images/badminton_class.jpg')` }">
+                        <div class="next-game-overlay"></div>
+                        <div class="next-game-content">
+                            <span class="next-game-label">YOUR NEXT GAME</span>
+                            <h2 class="next-game-date">{{ nextGame.date }}</h2>
+                            <p class="next-game-details">{{ nextGame.court }}<br>{{ nextGame.time }}</p>
+                            <button class="cancel-btn">Cancel Booking</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Calendar & Upcoming Section -->
+                <section class="calendar-section">
+                    <div class="calendar-wrapper">
+                        <div class="calendar-header">
+                            <button @click="prevMonth" class="month-nav">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <h2>{{ currentMonth }} {{ currentYear }}</h2>
+                            <button @click="nextMonth" class="month-nav">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+
+                        <div class="calendar-grid">
+                            <div class="calendar-weekday" v-for="day in weekdays" :key="day">
+                                {{ day }}
+                            </div>
+                            <div 
+                                v-for="day in calendarDays" 
+                                :key="day.date"
+                                class="calendar-day"
+                                :class="{
+                                    'calendar-day--empty': !day.date,
+                                    'calendar-day--booking': day.hasBooking,
+                                    'calendar-day--tournament': day.hasTournament,
+                                    'calendar-day--class': day.hasClass,
+                                    'calendar-day--today': day.isToday
+                                }"
+                            >
+                                <span v-if="day.date">{{ day.date }}</span>
+                                <div class="day-dots" v-if="day.date">
+                                    <span v-if="day.hasBooking" class="dot dot-booking"></span>
+                                    <span v-if="day.hasTournament" class="dot dot-tournament"></span>
+                                    <span v-if="day.hasClass" class="dot dot-class"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="calendar-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot dot-booking"></span>
+                                <span>Booking</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot dot-tournament"></span>
+                                <span>Tournament</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot dot-class"></span>
+                                <span>Class</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Events List -->
+                    <div class="upcoming-events">
+                        <div class="section-header">
+                            <h2>Upcoming Events</h2>
+                            <a href="#" class="view-all">
+                                View All <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="event-list">
+                            <div class="event-item" v-for="event in upcomingEvents" :key="event.id">
+                                <div class="event-date" :class="'event-date--' + event.type">
+                                    <span class="event-day">{{ event.day }}</span>
+                                    <span class="event-month">{{ event.month }}</span>
+                                </div>
+                                <div class="event-info">
+                                    <h4>{{ event.title }}</h4>
+                                    <p>{{ event.time }}</p>
+                                </div>
+                                <span class="event-badge" :class="'event-badge--' + event.type">{{ event.type }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== VUE SECTION ===== -->
+    <script>
+        const { createApp, ref, computed } = Vue;
+
+        const app = createApp({
+            setup() {
+                const currentDate = ref(new Date());
+                const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+                // Sample event data with dates
+                const events = ref([
+                    { date: 20, month: 5, year: 2026, title: 'Court 1 Booking', time: '9:00 AM - 10:00 AM', type: 'booking' },
+                    { date: 22, month: 5, year: 2026, title: 'Court 3 Booking', time: '2:00 PM - 3:00 PM', type: 'booking' },
+                    { date: 18, month: 5, year: 2026, title: 'Court 2 Booking', time: '5:00 PM - 6:00 PM', type: 'booking' },
+                    { date: 28, month: 5, year: 2026, title: 'SmashHIT Summer Open 2026', time: '8:00 AM - 6:00 PM', type: 'tournament' },
+                    { date: 12, month: 6, year: 2026, title: 'Monthly Singles Tournament', time: '8:00 AM - 6:00 PM', type: 'tournament' },
+                    { date: 15, month: 5, year: 2026, title: 'Beginner Badminton Class', time: '10:00 AM - 12:00 PM', type: 'class' },
+                    { date: 25, month: 5, year: 2026, title: 'Advanced Badminton Class', time: '2:00 PM - 4:00 PM', type: 'class' }
+                ]);
+
+                // Booking data for "Your Next Game"
+                const bookings = ref([
+                    { 
+                        date: new Date(2026, 5, 19), 
+                        court: 'Court 1', 
+                        time: '9:00 AM - 10:00 AM',
+                        title: 'Court 1 Booking'
+                    },
+                    { 
+                        date: new Date(2026, 5, 22), 
+                        court: 'Court 3', 
+                        time: '2:00 PM - 3:00 PM',
+                        title: 'Court 3 Booking'
+                    }
+                ]);
+
+                const currentMonth = computed(() => {
+                    return currentDate.value.toLocaleString('en-US', { month: 'long' });
+                });
+
+                const currentYear = computed(() => {
+                    return currentDate.value.getFullYear();
+                });
+
+                const nextGame = computed(() => {
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    const sortedBookings = bookings.value
+                        .filter(b => {
+                            const bookingDate = new Date(b.date);
+                            bookingDate.setHours(0, 0, 0, 0);
+                            return bookingDate >= today;
+                        })
+                        .sort((a, b) => a.date - b.date);
+
+                    if (sortedBookings.length === 0) return null;
+
+                    const nextBooking = sortedBookings[0];
+                    const dateObj = new Date(nextBooking.date);
+                    
+                    return {
+                        date: dateObj.toLocaleDateString('en-US', { 
+                            month: 'long', 
+                            day: 'numeric', 
+                            year: 'numeric' 
+                        }),
+                        court: nextBooking.court,
+                        time: nextBooking.time,
+                        title: nextBooking.title
+                    };
+                });
+
+                const calendarDays = computed(() => {
+                    const year = currentDate.value.getFullYear();
+                    const month = currentDate.value.getMonth();
+                    const firstDay = new Date(year, month, 1).getDay();
+                    const daysInMonth = new Date(year, month + 1, 0).getDate();
+                    const today = new Date();
+                    const todayDate = today.getDate();
+                    const todayMonth = today.getMonth();
+                    const todayYear = today.getFullYear();
+
+                    const days = [];
+                    
+                    for (let i = 0; i < firstDay; i++) {
+                        days.push({ date: null });
+                    }
+
+                    for (let i = 1; i <= daysInMonth; i++) {
+                        const isToday = (i === todayDate && month === todayMonth && year === todayYear);
+                        const hasBooking = events.value.some(e => e.date === i && e.month === month && e.year === year && e.type === 'booking');
+                        const hasTournament = events.value.some(e => e.date === i && e.month === month && e.year === year && e.type === 'tournament');
+                        const hasClass = events.value.some(e => e.date === i && e.month === month && e.year === year && e.type === 'class');
+                        
+                        days.push({ 
+                            date: i, 
+                            isToday: isToday,
+                            hasBooking: hasBooking,
+                            hasTournament: hasTournament,
+                            hasClass: hasClass
+                        });
+                    }
+
+                    return days;
+                });
+
+                const upcomingEvents = computed(() => {
+                    const today = new Date();
+                    
+                    return events.value
+                        .filter(e => {
+                            const eventDate = new Date(e.year, e.month, e.date);
+                            return eventDate >= today;
+                        })
+                        .sort((a, b) => {
+                            const dateA = new Date(a.year, a.month, a.date);
+                            const dateB = new Date(b.year, b.month, b.date);
+                            return dateA - dateB;
+                        })
+                        .map(e => ({
+                            ...e,
+                            day: e.date,
+                            month: new Date(e.year, e.month, 1).toLocaleString('en-US', { month: 'short' }).toUpperCase()
+                        }));
+                });
+
+                const prevMonth = () => {
+                    currentDate.value = new Date(currentDate.value.getFullYear(), currentDate.value.getMonth() - 1, 1);
+                };
+
+                const nextMonth = () => {
+                    currentDate.value = new Date(currentDate.value.getFullYear(), currentDate.value.getMonth() + 1, 1);
+                };
+
+                return {
+                    currentMonth,
+                    currentYear,
+                    weekdays,
+                    calendarDays,
+                    upcomingEvents,
+                    nextGame,
+                    prevMonth,
+                    nextMonth
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
