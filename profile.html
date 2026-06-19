@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile | SmashHIT</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Separate CSS file -->
+    <link rel="stylesheet" href="css/profile.css" />
+</head>
+<body>
+
+    <div id="app">
+        <!-- ===== PROFILE CONTAINER ===== -->
+        <div class="profile-container">
+
+            <!-- ===== SIDEBAR ===== -->
+            <aside class="sidebar">
+                <div class="sidebar-logo">
+                    <img src="images/logo_sample.png" alt="SmashHIT Logo" />
+                    <span>SmashHIT</span>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <!-- Main Menu Group -->
+                    <div class="nav-group">
+                        <span class="nav-group-label">Main Menu</span>
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="my_bookings.html" class="nav-link">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>My Bookings</span>
+                        </a>
+                        <a href="membership.html" class="nav-link">
+                            <i class="fas fa-id-card"></i>
+                            <span>Membership</span>
+                        </a>
+                        <a href="homepage.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Homepage</span>
+                        </a>
+                    </div>
+
+                    <!-- Account Group -->
+                    <div class="nav-group">
+                        <span class="nav-group-label">Account</span>
+                        <a href="profile.html" class="nav-link active">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="help.html" class="nav-link">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help</span>
+                        </a>
+                    </div>
+                </nav>
+
+                <!-- Logout at bottom -->
+                <div class="sidebar-footer">
+                    <a href="#" class="nav-link logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- ===== MAIN CONTENT ===== -->
+            <main class="main-content">
+                <!-- Top Bar -->
+                <header class="top-bar">
+                    <div class="top-bar-left">
+                        <h1>Profile</h1>
+                        <p>Manage your personal information and account settings.</p>
+                    </div>
+                    <div class="top-bar-right">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search..." />
+                        </div>
+                        <div class="top-bar-user">
+                            <button class="icon-btn" title="Notifications">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </button>
+                            <button class="icon-btn" title="Settings">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img src="images/default-avatar.png" alt="User Avatar" />
+                                </div>
+                                <div class="user-info">
+                                    <span class="user-name">John Doe</span>
+                                    <span class="user-role">Member</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Profile Content -->
+                <div class="profile-content">
+                    <!-- Profile Header -->
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img src="images/default-avatar.png" alt="Profile Picture" />
+                            <button class="change-avatar-btn">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <div class="profile-name">
+                            <h2>John Doe</h2>
+                            <p class="profile-email">john.doe@email.com</p>
+                            <p class="profile-member">Premium Member since 2024</p>
+                        </div>
+                    </div>
+
+                    <!-- Profile Tabs -->
+                    <div class="profile-tabs">
+                        <button class="tab-btn active" @click="activeTab = 'personal'">Personal Information</button>
+                        <button class="tab-btn" @click="activeTab = 'security'">Security</button>
+                        <button class="tab-btn" @click="activeTab = 'preferences'">Preferences</button>
+                    </div>
+
+                    <!-- Personal Information Tab -->
+                    <div class="tab-content" v-if="activeTab === 'personal'">
+                        <form @submit.prevent="saveProfile" class="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" v-model="user.firstName" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" v-model="user.lastName" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" v-model="user.email" />
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" v-model="user.phone" />
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text" id="address" v-model="user.address" />
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" v-model="user.city" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="province">Province</label>
+                                    <input type="text" id="province" v-model="user.province" />
+                                </div>
+                            </div>
+                            <button type="submit" class="save-btn">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <!-- Security Tab -->
+                    <div class="tab-content" v-if="activeTab === 'security'">
+                        <form @submit.prevent="changePassword" class="profile-form">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <div class="password-wrapper">
+                                    <input :type="showCurrentPassword ? 'text' : 'password'" id="currentPassword" v-model="security.currentPassword" />
+                                    <button type="button" class="toggle-password" @click="toggleCurrentPassword">
+                                        <i :class="showCurrentPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <div class="password-wrapper">
+                                    <input :type="showNewPassword ? 'text' : 'password'" id="newPassword" v-model="security.newPassword" />
+                                    <button type="button" class="toggle-password" @click="toggleNewPassword">
+                                        <i :class="showNewPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <div class="password-wrapper">
+                                    <input :type="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" v-model="security.confirmPassword" />
+                                    <button type="button" class="toggle-password" @click="toggleConfirmPassword">
+                                        <i :class="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="submit" class="save-btn">Update Password</button>
+                        </form>
+                    </div>
+
+                    <!-- Preferences Tab -->
+                    <div class="tab-content" v-if="activeTab === 'preferences'">
+                        <form @submit.prevent="savePreferences" class="profile-form">
+                            <div class="preference-group">
+                                <h3>Notifications</h3>
+                                <label class="toggle-label">
+                                    <span>Email Notifications</span>
+                                    <div class="toggle-switch" @click="preferences.emailNotifications = !preferences.emailNotifications">
+                                        <span class="toggle-track" :class="{ active: preferences.emailNotifications }">
+                                            <span class="toggle-thumb"></span>
+                                        </span>
+                                    </div>
+                                </label>
+                                <label class="toggle-label">
+                                    <span>SMS Notifications</span>
+                                    <div class="toggle-switch" @click="preferences.smsNotifications = !preferences.smsNotifications">
+                                        <span class="toggle-track" :class="{ active: preferences.smsNotifications }">
+                                            <span class="toggle-thumb"></span>
+                                        </span>
+                                    </div>
+                                </label>
+                                <label class="toggle-label">
+                                    <span>Promotional Offers</span>
+                                    <div class="toggle-switch" @click="preferences.promotions = !preferences.promotions">
+                                        <span class="toggle-track" :class="{ active: preferences.promotions }">
+                                            <span class="toggle-thumb"></span>
+                                        </span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="preference-group">
+                                <h3>Language</h3>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" value="en" v-model="preferences.language" />
+                                        <span>English</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" value="fil" v-model="preferences.language" />
+                                        <span>Filipino</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="save-btn">Save Preferences</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== VUE SECTION ===== -->
+    <script>
+        const { createApp, ref } = Vue;
+
+        const app = createApp({
+            setup() {
+                const activeTab = ref('personal');
+
+                const user = ref({
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    email: 'john.doe@email.com',
+                    phone: '097361274809',
+                    address: 'BARANGAY, Quezon St',
+                    city: 'Panabo',
+                    province: 'Davao del Norte'
+                });
+
+                const security = ref({
+                    currentPassword: '',
+                    newPassword: '',
+                    confirmPassword: ''
+                });
+
+                const preferences = ref({
+                    emailNotifications: true,
+                    smsNotifications: false,
+                    promotions: true,
+                    language: 'en'
+                });
+
+                const showCurrentPassword = ref(false);
+                const showNewPassword = ref(false);
+                const showConfirmPassword = ref(false);
+
+                const toggleCurrentPassword = () => {
+                    showCurrentPassword.value = !showCurrentPassword.value;
+                };
+
+                const toggleNewPassword = () => {
+                    showNewPassword.value = !showNewPassword.value;
+                };
+
+                const toggleConfirmPassword = () => {
+                    showConfirmPassword.value = !showConfirmPassword.value;
+                };
+
+                const saveProfile = () => {
+                    alert('Profile information saved successfully!');
+                };
+
+                const changePassword = () => {
+                    if (security.value.newPassword !== security.value.confirmPassword) {
+                        alert('Passwords do not match!');
+                        return;
+                    }
+                    if (security.value.newPassword.length < 6) {
+                        alert('Password must be at least 6 characters long.');
+                        return;
+                    }
+                    alert('Password changed successfully!');
+                    security.value.currentPassword = '';
+                    security.value.newPassword = '';
+                    security.value.confirmPassword = '';
+                };
+
+                const savePreferences = () => {
+                    alert('Preferences saved successfully!');
+                };
+
+                return {
+                    activeTab,
+                    user,
+                    security,
+                    preferences,
+                    showCurrentPassword,
+                    showNewPassword,
+                    showConfirmPassword,
+                    toggleCurrentPassword,
+                    toggleNewPassword,
+                    toggleConfirmPassword,
+                    saveProfile,
+                    changePassword,
+                    savePreferences
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
