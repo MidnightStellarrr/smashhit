@@ -128,7 +128,6 @@
                     <div class="profile-tabs">
                         <button class="tab-btn active" @click="activeTab = 'personal'">Personal Information</button>
                         <button class="tab-btn" @click="activeTab = 'security'">Security</button>
-                        <button class="tab-btn" @click="activeTab = 'preferences'">Preferences</button>
                     </div>
 
                     <!-- Personal Information Tab -->
@@ -201,53 +200,6 @@
                                 </div>
                             </div>
                             <button type="submit" class="save-btn">Update Password</button>
-                        </form>
-                    </div>
-
-                    <!-- Preferences Tab -->
-                    <div class="tab-content" v-if="activeTab === 'preferences'">
-                        <form @submit.prevent="savePreferences" class="profile-form">
-                            <div class="preference-group">
-                                <h3>Notifications</h3>
-                                <label class="toggle-label">
-                                    <span>Email Notifications</span>
-                                    <div class="toggle-switch" @click="preferences.emailNotifications = !preferences.emailNotifications">
-                                        <span class="toggle-track" :class="{ active: preferences.emailNotifications }">
-                                            <span class="toggle-thumb"></span>
-                                        </span>
-                                    </div>
-                                </label>
-                                <label class="toggle-label">
-                                    <span>SMS Notifications</span>
-                                    <div class="toggle-switch" @click="preferences.smsNotifications = !preferences.smsNotifications">
-                                        <span class="toggle-track" :class="{ active: preferences.smsNotifications }">
-                                            <span class="toggle-thumb"></span>
-                                        </span>
-                                    </div>
-                                </label>
-                                <label class="toggle-label">
-                                    <span>Promotional Offers</span>
-                                    <div class="toggle-switch" @click="preferences.promotions = !preferences.promotions">
-                                        <span class="toggle-track" :class="{ active: preferences.promotions }">
-                                            <span class="toggle-thumb"></span>
-                                        </span>
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="preference-group">
-                                <h3>Language</h3>
-                                <div class="radio-group">
-                                    <label class="radio-label">
-                                        <input type="radio" value="en" v-model="preferences.language" />
-                                        <span>English</span>
-                                    </label>
-                                    <label class="radio-label">
-                                        <input type="radio" value="fil" v-model="preferences.language" />
-                                        <span>Filipino</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <button type="submit" class="save-btn">Save Preferences</button>
                         </form>
                     </div>
                 </div>

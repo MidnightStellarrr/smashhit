@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings | SmashHIT</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Separate CSS file -->
+    <link rel="stylesheet" href="css/settings.css" />
+</head>
+<body>
+
+    <div id="app">
+        <!-- ===== SETTINGS CONTAINER ===== -->
+        <div class="settings-container">
+
+            <!-- ===== SIDEBAR ===== -->
+            <aside class="sidebar">
+                <div class="sidebar-logo">
+                    <img src="images/logo_sample.png" alt="SmashHIT Logo" />
+                    <span>SmashHIT</span>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <!-- Main Menu Group -->
+                    <div class="nav-group">
+                        <span class="nav-group-label">Main Menu</span>
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="my_bookings.html" class="nav-link">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>My Bookings</span>
+                        </a>
+                        <a href="membership.html" class="nav-link">
+                            <i class="fas fa-id-card"></i>
+                            <span>Membership</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Homepage</span>
+                        </a>
+                    </div>
+
+                    <!-- Account Group -->
+                    <div class="nav-group">
+                        <span class="nav-group-label">Account</span>
+                        <a href="profile.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="help.html" class="nav-link">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help</span>
+                        </a>
+                    </div>
+                </nav>
+
+                <!-- Logout at bottom -->
+                <div class="sidebar-footer">
+                    <a href="#" class="nav-link logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- ===== MAIN CONTENT ===== -->
+            <main class="main-content">
+                <!-- Top Bar -->
+                <header class="top-bar">
+                    <div class="top-bar-left">
+                        <h1>Settings</h1>
+                        <p>Manage your account preferences and application settings.</p>
+                    </div>
+                    <div class="top-bar-right">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search settings..." />
+                        </div>
+                        <div class="top-bar-user">
+                            <button class="icon-btn" title="Notifications">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </button>
+                            <button class="icon-btn" title="Settings" @click="goToSettings">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                            <div class="user-profile" @click="goToProfile">
+                                <div class="user-avatar">
+                                    <img src="images/default-avatar.png" alt="User Avatar" />
+                                </div>
+                                <div class="user-info">
+                                    <span class="user-name">John Doe</span>
+                                    <span class="user-role">Member</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Settings Tabs -->
+                <div class="settings-tabs">
+                    <button class="tab-btn" :class="{ active: activeTab === 'general' }" @click="activeTab = 'general'">
+                        <i class="fas fa-sliders-h"></i> General
+                    </button>
+                    <button class="tab-btn" :class="{ active: activeTab === 'notifications' }" @click="activeTab = 'notifications'">
+                        <i class="fas fa-bell"></i> Notifications
+                    </button>
+                    <button class="tab-btn" :class="{ active: activeTab === 'privacy' }" @click="activeTab = 'privacy'">
+                        <i class="fas fa-lock"></i> Privacy
+                    </button>
+                    <button class="tab-btn" :class="{ active: activeTab === 'appearance' }" @click="activeTab = 'appearance'">
+                        <i class="fas fa-palette"></i> Appearance
+                    </button>
+                </div>
+
+                <!-- General Settings -->
+                <div class="tab-content" v-if="activeTab === 'general'">
+                    <div class="settings-group">
+                        <h3>Language & Region</h3>
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-globe"></i></span>
+                                <div>
+                                    <h4>Language</h4>
+                                    <p>Choose your preferred language</p>
+                                </div>
+                            </div>
+                            <select class="settings-select" v-model="settings.language">
+                                <option value="en">English</option>
+                                <option value="fil">Filipino</option>
+                                <option value="es">Spanish</option>
+                            </select>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-clock"></i></span>
+                                <div>
+                                    <h4>Time Zone</h4>
+                                    <p>Set your local time zone</p>
+                                </div>
+                            </div>
+                            <select class="settings-select" v-model="settings.timezone">
+                                <option value="Asia/Manila">Asia/Manila (GMT+8)</option>
+                                <option value="Asia/Tokyo">Asia/Tokyo (GMT+9)</option>
+                                <option value="America/New_York">America/New_York (GMT-5)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>Currency</h3>
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-money-bill-wave"></i></span>
+                                <div>
+                                    <h4>Currency Display</h4>
+                                    <p>Select your preferred currency format</p>
+                                </div>
+                            </div>
+                            <select class="settings-select" v-model="settings.currency">
+                                <option value="PHP">Philippine Peso (₱)</option>
+                                <option value="USD">US Dollar ($)</option>
+                                <option value="EUR">Euro (€)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="save-settings-btn" @click="saveSettings">Save Changes</button>
+                </div>
+
+                <!-- Notifications Settings -->
+                <div class="tab-content" v-if="activeTab === 'notifications'">
+                    <div class="settings-group">
+                        <h3>Push Notifications</h3>
+                        <div class="settings-item toggle-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-calendar-check"></i></span>
+                                <div>
+                                    <h4>Booking Reminders</h4>
+                                    <p>Get reminders for upcoming bookings</p>
+                                </div>
+                            </div>
+                            <div class="toggle-switch" @click="settings.bookingReminders = !settings.bookingReminders">
+                                <span class="toggle-track" :class="{ active: settings.bookingReminders }">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="settings-item toggle-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-trophy"></i></span>
+                                <div>
+                                    <h4>Tournament Updates</h4>
+                                    <p>Get notified about upcoming tournaments</p>
+                                </div>
+                            </div>
+                            <div class="toggle-switch" @click="settings.tournamentUpdates = !settings.tournamentUpdates">
+                                <span class="toggle-track" :class="{ active: settings.tournamentUpdates }">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="settings-item toggle-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-tag"></i></span>
+                                <div>
+                                    <h4>Promotions & Offers</h4>
+                                    <p>Receive special offers and discounts</p>
+                                </div>
+                            </div>
+                            <div class="toggle-switch" @click="settings.promotions = !settings.promotions">
+                                <span class="toggle-track" :class="{ active: settings.promotions }">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>Email Notifications</h3>
+                        <div class="settings-item toggle-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-envelope"></i></span>
+                                <div>
+                                    <h4>Weekly Digest</h4>
+                                    <p>Receive a weekly summary of your activities</p>
+                                </div>
+                            </div>
+                            <div class="toggle-switch" @click="settings.weeklyDigest = !settings.weeklyDigest">
+                                <span class="toggle-track" :class="{ active: settings.weeklyDigest }">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="save-settings-btn" @click="saveSettings">Save Changes</button>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div class="tab-content" v-if="activeTab === 'privacy'">
+                    <div class="settings-group">
+                        <h3>Account Privacy</h3>
+                        <div class="settings-item toggle-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-user"></i></span>
+                                <div>
+                                    <h4>Profile Visibility</h4>
+                                    <p>Make your profile visible to other members</p>
+                                </div>
+                            </div>
+                            <div class="toggle-switch" @click="settings.profileVisibility = !settings.profileVisibility">
+                                <span class="toggle-track" :class="{ active: settings.profileVisibility }">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="settings-item toggle-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-calendar-alt"></i></span>
+                                <div>
+                                    <h4>Show Booking History</h4>
+                                    <p>Allow others to see your booking history</p>
+                                </div>
+                            </div>
+                            <div class="toggle-switch" @click="settings.showBookingHistory = !settings.showBookingHistory">
+                                <span class="toggle-track" :class="{ active: settings.showBookingHistory }">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>Data Management</h3>
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-download"></i></span>
+                                <div>
+                                    <h4>Export Data</h4>
+                                    <p>Download a copy of your data</p>
+                                </div>
+                            </div>
+                            <button class="action-btn" @click="exportData">Export</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-trash-alt"></i></span>
+                                <div>
+                                    <h4>Delete Account</h4>
+                                    <p>Permanently delete your account and all data</p>
+                                </div>
+                            </div>
+                            <button class="action-btn danger" @click="deleteAccount">Delete Account</button>
+                        </div>
+                    </div>
+
+                    <button class="save-settings-btn" @click="saveSettings">Save Changes</button>
+                </div>
+
+                <!-- Appearance Settings -->
+                <div class="tab-content" v-if="activeTab === 'appearance'">
+                    <div class="settings-group">
+                        <h3>Theme</h3>
+                        <div class="theme-options">
+                            <div class="theme-option" :class="{ active: settings.theme === 'dark' }" @click="settings.theme = 'dark'">
+                                <div class="theme-preview dark"></div>
+                                <span>Dark</span>
+                            </div>
+                            <div class="theme-option" :class="{ active: settings.theme === 'light' }" @click="settings.theme = 'light'">
+                                <div class="theme-preview light"></div>
+                                <span>Light</span>
+                            </div>
+                            <div class="theme-option" :class="{ active: settings.theme === 'system' }" @click="settings.theme = 'system'">
+                                <div class="theme-preview system"></div>
+                                <span>System</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>Dashboard Layout</h3>
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-icon"><i class="fas fa-columns"></i></span>
+                                <div>
+                                    <h4>Default View</h4>
+                                    <p>Choose your preferred dashboard layout</p>
+                                </div>
+                            </div>
+                            <select class="settings-select" v-model="settings.dashboardLayout">
+                                <option value="compact">Compact</option>
+                                <option value="comfortable">Comfortable</option>
+                                <option value="spacious">Spacious</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="save-settings-btn" @click="saveSettings">Save Changes</button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== VUE SECTION ===== -->
+    <script>
+        const { createApp, ref } = Vue;
+
+        const app = createApp({
+            setup() {
+                const activeTab = ref('general');
+
+                const settings = ref({
+                    language: 'en',
+                    timezone: 'Asia/Manila',
+                    currency: 'PHP',
+                    bookingReminders: true,
+                    tournamentUpdates: true,
+                    promotions: false,
+                    weeklyDigest: true,
+                    profileVisibility: true,
+                    showBookingHistory: true,
+                    theme: 'dark',
+                    dashboardLayout: 'comfortable'
+                });
+
+                const saveSettings = () => {
+                    alert('Settings saved successfully!');
+                };
+
+                const exportData = () => {
+                    alert('Your data is being exported. You will receive a download link shortly.');
+                };
+
+                const deleteAccount = () => {
+                    if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                        if (confirm('This will permanently delete all your data. Are you absolutely sure?')) {
+                            alert('Your account has been scheduled for deletion. You will receive a confirmation email.');
+                        }
+                    }
+                };
+
+                const goToProfile = () => {
+                    window.location.href = 'profile.html';
+                };
+
+                const goToSettings = () => {
+                    window.location.href = 'settings.html';
+                };
+
+                return {
+                    activeTab,
+                    settings,
+                    saveSettings,
+                    exportData,
+                    deleteAccount,
+                    goToProfile,
+                    goToSettings
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
