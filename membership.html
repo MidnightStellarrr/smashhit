@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Membership | SmashHIT</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Separate CSS file -->
+    <link rel="stylesheet" href="css/membership.css" />
+</head>
+<body>
+
+    <div id="app">
+        <!-- ===== MEMBERSHIP CONTAINER ===== -->
+        <div class="membership-container">
+
+            <!-- ===== SIDEBAR ===== -->
+            <aside class="sidebar">
+                <div class="sidebar-logo">
+                    <img src="images/logo_sample.png" alt="SmashHIT Logo" />
+                    <span>SmashHIT</span>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <!-- Main Menu Group -->
+                    <div class="nav-group">
+                        <span class="nav-group-label">Main Menu</span>
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="my_bookings.html" class="nav-link">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>My Bookings</span>
+                        </a>
+                        <a href="#" class="nav-link active">
+                            <i class="fas fa-id-card"></i>
+                            <span>Membership</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Homepage</span>
+                        </a>
+                    </div>
+
+                    <!-- Account Group -->
+                    <div class="nav-group">
+                        <span class="nav-group-label">Account</span>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help</span>
+                        </a>
+                    </div>
+                </nav>
+
+                <!-- Logout at bottom -->
+                <div class="sidebar-footer">
+                    <a href="#" class="nav-link logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- ===== MAIN CONTENT ===== -->
+            <main class="main-content">
+                <!-- Top Bar -->
+                <header class="top-bar">
+                    <div class="top-bar-left">
+                        <h1>Membership</h1>
+                        <p>Manage your membership plan and benefits.</p>
+                    </div>
+                    <div class="top-bar-right">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search..." />
+                        </div>
+                        <div class="top-bar-user">
+                            <button class="icon-btn" title="Notifications">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </button>
+                            <button class="icon-btn" title="Settings">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img src="images/default-avatar.png" alt="User Avatar" />
+                                </div>
+                                <div class="user-info">
+                                    <span class="user-name">John Doe</span>
+                                    <span class="user-role">Member</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Current Membership -->
+                <section class="current-membership">
+                    <div class="membership-card">
+                        <div class="membership-badge">
+                            <i class="fas fa-crown"></i>
+                            <span>Active</span>
+                        </div>
+                        <h2 class="membership-plan">Premium Plan</h2>
+                        <p class="membership-duration">Valid until December 31, 2026</p>
+                        <div class="membership-benefits">
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Unlimited gym access</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>15% off court bookings</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Priority booking</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Free guest pass/month</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Free water & locker</span>
+                            </div>
+                        </div>
+                        <div class="membership-actions">
+                            <button class="btn-renew">Renew Membership</button>
+                            <button class="btn-upgrade">Upgrade Plan</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Membership Plans -->
+                <section class="plans-section">
+                    <div class="section-header">
+                        <h2>Available Plans</h2>
+                    </div>
+                    <div class="plans-grid">
+                        <div class="plan-card plan-card--basic">
+                            <div class="plan-header">
+                                <h3>Basic</h3>
+                                <p class="plan-price">₱500<span>/month</span></p>
+                            </div>
+                            <ul class="plan-features">
+                                <li><i class="fas fa-check"></i> Full gym access</li>
+                                <li><i class="fas fa-check"></i> Locker</li>
+                                <li><i class="fas fa-check"></i> Free water</li>
+                                <li class="disabled"><i class="fas fa-times"></i> Guest pass</li>
+                                <li class="disabled"><i class="fas fa-times"></i> Court discount</li>
+                            </ul>
+                            <button class="btn-select" @click="selectPlan('Basic')">Select Plan</button>
+                        </div>
+
+                        <div class="plan-card plan-card--popular">
+                            <div class="plan-badge">Most Popular</div>
+                            <div class="plan-header">
+                                <h3>Business</h3>
+                                <p class="plan-price">₱450<span>/month</span></p>
+                                <span class="plan-save">Save 10%</span>
+                            </div>
+                            <ul class="plan-features">
+                                <li><i class="fas fa-check"></i> Full gym access</li>
+                                <li><i class="fas fa-check"></i> Free water</li>
+                                <li><i class="fas fa-check"></i> 1 guest pass/month</li>
+                                <li><i class="fas fa-check"></i> 10% off courts</li>
+                                <li class="disabled"><i class="fas fa-times"></i> Priority booking</li>
+                            </ul>
+                            <button class="btn-select" @click="selectPlan('Business')">Select Plan</button>
+                        </div>
+
+                        <div class="plan-card plan-card--premium">
+                            <div class="plan-header">
+                                <h3>Premium</h3>
+                                <p class="plan-price">₱600<span>/month</span></p>
+                            </div>
+                            <ul class="plan-features">
+                                <li><i class="fas fa-check"></i> Full gym access</li>
+                                <li><i class="fas fa-check"></i> Free water</li>
+                                <li><i class="fas fa-check"></i> 1 guest pass/month</li>
+                                <li><i class="fas fa-check"></i> 15% off courts</li>
+                                <li><i class="fas fa-check"></i> Priority booking</li>
+                            </ul>
+                            <button class="btn-select" @click="selectPlan('Premium')">Select Plan</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Membership History -->
+                <section class="history-section">
+                    <div class="section-header">
+                        <h2>Membership History</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="history-list">
+                        <div class="history-item" v-for="history in membershipHistory" :key="history.id">
+                            <div class="history-icon" :class="'history-icon--' + history.status">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="history-details">
+                                <h4>{{ history.plan }}</h4>
+                                <p>{{ history.date }}</p>
+                            </div>
+                            <div class="history-status" :class="'history-status--' + history.status">
+                                {{ history.status }}
+                            </div>
+                            <div class="history-amount">{{ history.amount }}</div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== VUE SECTION ===== -->
+    <script>
+        const { createApp, ref } = Vue;
+
+        const app = createApp({
+            setup() {
+                const membershipHistory = ref([
+                    {
+                        id: 1,
+                        plan: 'Premium Plan',
+                        date: 'June 1, 2026 - June 30, 2026',
+                        status: 'active',
+                        amount: '₱600'
+                    },
+                    {
+                        id: 2,
+                        plan: 'Business Plan',
+                        date: 'May 1, 2026 - May 31, 2026',
+                        status: 'expired',
+                        amount: '₱450'
+                    },
+                    {
+                        id: 3,
+                        plan: 'Basic Plan',
+                        date: 'April 1, 2026 - April 30, 2026',
+                        status: 'expired',
+                        amount: '₱500'
+                    }
+                ]);
+
+                const selectPlan = (planName) => {
+                    alert(`You selected the ${planName} plan. Redirecting to checkout...`);
+                };
+
+                return {
+                    membershipHistory,
+                    selectPlan
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
