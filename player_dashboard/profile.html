@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Bookings | SmashHIT</title>
+    <title>Profile | SmashHIT</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
@@ -13,18 +13,18 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <!-- Separate CSS file -->
-    <link rel="stylesheet" href="css/my_bookings.css" />
+    <link rel="stylesheet" href="../css/profile.css" />
 </head>
 <body>
 
     <div id="app">
-        <!-- ===== DASHBOARD LAYOUT ===== -->
-        <div class="bookings-container">
+        <!-- ===== PROFILE CONTAINER ===== -->
+        <div class="profile-container">
 
             <!-- ===== SIDEBAR ===== -->
             <aside class="sidebar">
                 <div class="sidebar-logo">
-                    <img src="images/logo_sample.png" alt="SmashHIT Logo" />
+                    <img src="../images/logo_sample.png" alt="SmashHIT Logo" />
                     <span>SmashHIT</span>
                 </div>
 
@@ -36,7 +36,7 @@
                             <i class="fas fa-th-large"></i>
                             <span>Dashboard</span>
                         </a>
-                        <a href="#" class="nav-link active">
+                        <a href="my_bookings.html" class="nav-link">
                             <i class="fas fa-calendar-check"></i>
                             <span>My Bookings</span>
                         </a>
@@ -53,7 +53,7 @@
                     <!-- Account Group -->
                     <div class="nav-group">
                         <span class="nav-group-label">Account</span>
-                        <a href="profile.html" class="nav-link">
+                        <a href="#" class="nav-link active">
                             <i class="fas fa-user"></i>
                             <span>Profile</span>
                         </a>
@@ -78,8 +78,8 @@
                 <!-- Top Bar -->
                 <header class="top-bar">
                     <div class="top-bar-left">
-                        <h1>My Bookings</h1>
-                        <p>Manage all your court bookings in one place.</p>
+                        <h1>Profile</h1>
+                        <p>Manage your personal information and account settings.</p>
                     </div>
                     <div class="top-bar-right">
                         
@@ -127,7 +127,7 @@
                             <!-- User Profile -->
                             <div class="user-profile" @click="goToProfile">
                                 <div class="user-avatar">
-                                    <img src="images/default-avatar.png" alt="User Avatar" />
+                                    <img src="../images/default-avatar.png" alt="User Avatar" />
                                 </div>
                                 <div class="user-info">
                                     <span class="user-name">John Doe</span>
@@ -138,82 +138,102 @@
                     </div>
                 </header>
 
-                <!-- Booking Stats -->
-                <section class="booking-stats">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-calendar-check"></i>
+                <!-- Profile Content -->
+                <div class="profile-content">
+                    <!-- Profile Header -->
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img src="../images/default-avatar.png" alt="Profile Picture" />
+                            <button class="change-avatar-btn">
+                                <i class="fas fa-camera"></i>
+                            </button>
                         </div>
-                        <div class="stat-info">
-                            <h3>12</h3>
-                            <p>Total Bookings</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>3</h3>
-                            <p>Upcoming</p>
+                        <div class="profile-name">
+                            <h2>John Doe</h2>
+                            <p class="profile-email">john.doe@email.com</p>
+                            <p class="profile-member">Premium Member since 2024</p>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>8</h3>
-                            <p>Completed</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-times-circle"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>1</h3>
-                            <p>Cancelled</p>
-                        </div>
-                    </div>
-                </section>
 
-                <!-- Filter Tabs -->
-                <div class="filter-tabs">
-                    <button class="filter-tab active" @click="filterBookings('all')">All</button>
-                    <button class="filter-tab" @click="filterBookings('upcoming')">Upcoming</button>
-                    <button class="filter-tab" @click="filterBookings('completed')">Completed</button>
-                    <button class="filter-tab" @click="filterBookings('cancelled')">Cancelled</button>
+                    <!-- Profile Tabs -->
+                    <div class="profile-tabs">
+                        <button class="tab-btn active" @click="activeTab = 'personal'">Personal Information</button>
+                        <button class="tab-btn" @click="activeTab = 'security'">Security</button>
+                    </div>
+
+                    <!-- Personal Information Tab -->
+                    <div class="tab-content" v-if="activeTab === 'personal'">
+                        <form @submit.prevent="saveProfile" class="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" v-model="user.firstName" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" v-model="user.lastName" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" v-model="user.email" />
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" v-model="user.phone" />
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text" id="address" v-model="user.address" />
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" v-model="user.city" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="province">Province</label>
+                                    <input type="text" id="province" v-model="user.province" />
+                                </div>
+                            </div>
+                            <button type="submit" class="save-btn">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <!-- Security Tab -->
+                    <div class="tab-content" v-if="activeTab === 'security'">
+                        <form @submit.prevent="changePassword" class="profile-form">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <div class="password-wrapper">
+                                    <input :type="showCurrentPassword ? 'text' : 'password'" id="currentPassword" v-model="security.currentPassword" />
+                                    <button type="button" class="toggle-password" @click="toggleCurrentPassword">
+                                        <i :class="showCurrentPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <div class="password-wrapper">
+                                    <input :type="showNewPassword ? 'text' : 'password'" id="newPassword" v-model="security.newPassword" />
+                                    <button type="button" class="toggle-password" @click="toggleNewPassword">
+                                        <i :class="showNewPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <div class="password-wrapper">
+                                    <input :type="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" v-model="security.confirmPassword" />
+                                    <button type="button" class="toggle-password" @click="toggleConfirmPassword">
+                                        <i :class="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="submit" class="save-btn">Update Password</button>
+                        </form>
+                    </div>
                 </div>
-
-                <!-- Bookings List -->
-                <section class="bookings-list">
-                    <div class="booking-item" v-for="booking in filteredBookings" :key="booking.id">
-                        <div class="booking-status" :class="'booking-status--' + booking.status">
-                            <span class="status-dot"></span>
-                            <span class="status-text">{{ booking.status }}</span>
-                        </div>
-                        <div class="booking-details">
-                            <div class="booking-info">
-                                <h3>{{ booking.court }}</h3>
-                                <p><i class="fas fa-calendar-alt"></i> {{ booking.date }}</p>
-                                <p><i class="fas fa-clock"></i> {{ booking.time }}</p>
-                            </div>
-                            <div class="booking-actions">
-                                <button class="btn-view" @click="viewBooking(booking.id)">View</button>
-                                <button class="btn-cancel" v-if="booking.status !== 'cancelled' && booking.status !== 'completed'" @click="cancelBooking(booking.id)">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Empty State -->
-                    <div class="empty-state" v-if="filteredBookings.length === 0">
-                        <i class="fas fa-calendar-check"></i>
-                        <h3>No bookings found</h3>
-                        <p>You don't have any {{ currentFilter }} bookings yet.</p>
-                        <a href="book_a_court.html" class="book-now-btn">Book Now</a>
-                    </div>
-                </section>
             </main>
         </div>
     </div>
@@ -224,7 +244,7 @@
 
         const app = createApp({
             setup() {
-                const currentFilter = ref('all');
+                const activeTab = ref('personal');
                 const showNotifications = ref(false);
 
                 // Sample notifications data
@@ -292,74 +312,55 @@
                     document.removeEventListener('click', handleClickOutside);
                 });
 
-                const bookings = ref([
-                    {
-                        id: 1,
-                        court: 'Court 1',
-                        date: 'June 20, 2026',
-                        time: '9:00 AM - 10:00 AM',
-                        status: 'completed'
-                    },
-                    {
-                        id: 2,
-                        court: 'Court 3',
-                        date: 'June 22, 2026',
-                        time: '2:00 PM - 3:00 PM',
-                        status: 'upcoming'
-                    },
-                    {
-                        id: 3,
-                        court: 'Court 2',
-                        date: 'June 18, 2026',
-                        time: '5:00 PM - 6:00 PM',
-                        status: 'completed'
-                    },
-                    {
-                        id: 4,
-                        court: 'Court 1',
-                        date: 'June 25, 2026',
-                        time: '10:00 AM - 11:00 AM',
-                        status: 'upcoming'
-                    },
-                    {
-                        id: 5,
-                        court: 'Court 4',
-                        date: 'June 15, 2026',
-                        time: '3:00 PM - 4:00 PM',
-                        status: 'cancelled'
-                    },
-                    {
-                        id: 6,
-                        court: 'Court 2',
-                        date: 'June 10, 2026',
-                        time: '8:00 AM - 9:00 AM',
-                        status: 'completed'
-                    }
-                ]);
-
-                const filteredBookings = computed(() => {
-                    if (currentFilter.value === 'all') {
-                        return bookings.value;
-                    }
-                    return bookings.value.filter(b => b.status === currentFilter.value);
+                const user = ref({
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    email: 'john.doe@email.com',
+                    phone: '097361274809',
+                    address: 'BARANGAY, Quezon St',
+                    city: 'Panabo',
+                    province: 'Davao del Norte'
                 });
 
-                const filterBookings = (filter) => {
-                    currentFilter.value = filter;
+                const security = ref({
+                    currentPassword: '',
+                    newPassword: '',
+                    confirmPassword: ''
+                });
+
+                const showCurrentPassword = ref(false);
+                const showNewPassword = ref(false);
+                const showConfirmPassword = ref(false);
+
+                const toggleCurrentPassword = () => {
+                    showCurrentPassword.value = !showCurrentPassword.value;
                 };
 
-                const viewBooking = (id) => {
-                    alert(`Viewing booking #${id}`);
+                const toggleNewPassword = () => {
+                    showNewPassword.value = !showNewPassword.value;
                 };
 
-                const cancelBooking = (id) => {
-                    if (confirm('Are you sure you want to cancel this booking?')) {
-                        const booking = bookings.value.find(b => b.id === id);
-                        if (booking) {
-                            booking.status = 'cancelled';
-                            alert('Booking cancelled successfully!');
-                        }
+                const toggleConfirmPassword = () => {
+                    showConfirmPassword.value = !showConfirmPassword.value;
+                };
+
+                const saveProfile = () => {
+                    alert('Profile information saved successfully!');
+                };
+
+                const changePassword = () => {
+                    if (security.value.newPassword !== security.value.confirmPassword) {
+                        alert('Passwords do not match!');
+                        return;
                     }
+                    if (security.value.newPassword.length < 6) {
+                        alert('Password must be at least 6 characters long.');
+                        return;
+                    }
+                    alert('Password changed successfully!');
+                    security.value.currentPassword = '';
+                    security.value.newPassword = '';
+                    security.value.confirmPassword = '';
                 };
 
                 const goToSettings = () => {
@@ -371,12 +372,17 @@
                 };
 
                 return {
-                    currentFilter,
-                    bookings,
-                    filteredBookings,
-                    filterBookings,
-                    viewBooking,
-                    cancelBooking,
+                    activeTab,
+                    user,
+                    security,
+                    showCurrentPassword,
+                    showNewPassword,
+                    showConfirmPassword,
+                    toggleCurrentPassword,
+                    toggleNewPassword,
+                    toggleConfirmPassword,
+                    saveProfile,
+                    changePassword,
                     showNotifications,
                     notifications,
                     unreadCount,
