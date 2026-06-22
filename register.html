@@ -37,8 +37,10 @@
                                     id="firstName" 
                                     v-model="firstName" 
                                     placeholder="Enter first name"
-                                    required
+                                    @blur="validateField('firstName')"
+                                    :class="{ 'error': errors.firstName }"
                                 />
+                                <span class="error-message" v-if="errors.firstName">{{ errors.firstName }}</span>
                             </div>
                             <div class="form-group half">
                                 <label for="lastName">Last Name</label>
@@ -47,8 +49,10 @@
                                     id="lastName" 
                                     v-model="lastName" 
                                     placeholder="Enter last name"
-                                    required
+                                    @blur="validateField('lastName')"
+                                    :class="{ 'error': errors.lastName }"
                                 />
+                                <span class="error-message" v-if="errors.lastName">{{ errors.lastName }}</span>
                             </div>
                         </div>
 
@@ -59,8 +63,10 @@
                                 id="email" 
                                 v-model="email" 
                                 placeholder="Enter your email"
-                                required
+                                @blur="validateField('email')"
+                                :class="{ 'error': errors.email }"
                             />
+                            <span class="error-message" v-if="errors.email">{{ errors.email }}</span>
                         </div>
 
                         <div class="form-group">
@@ -72,6 +78,7 @@
                                 placeholder="Enter your phone number"
                             />
                         </div>
+
                         <div class="form-group">
                             <label for="password">Password</label>
                             <div class="password-wrapper">
@@ -80,12 +87,14 @@
                                     id="password" 
                                     v-model="password" 
                                     placeholder="Create a password"
-                                    required
+                                    @blur="validateField('password')"
+                                    :class="{ 'error': errors.password }"
                                 />
                                 <button type="button" class="toggle-password" @click="togglePasswordVisibility">
                                     <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
                                 </button>
                             </div>
+                            <span class="error-message" v-if="errors.password">{{ errors.password }}</span>
                         </div>
 
                         <div class="form-group">
@@ -96,12 +105,14 @@
                                     id="confirmPassword" 
                                     v-model="confirmPassword" 
                                     placeholder="Confirm your password"
-                                    required
+                                    @blur="validateField('confirmPassword')"
+                                    :class="{ 'error': errors.confirmPassword }"
                                 />
                                 <button type="button" class="toggle-password" @click="toggleConfirmPasswordVisibility">
                                     <i :class="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
                                 </button>
                             </div>
+                            <span class="error-message" v-if="errors.confirmPassword">{{ errors.confirmPassword }}</span>
                         </div>
 
                         <div class="form-options">
@@ -140,7 +151,7 @@
 
     <!-- ===== VUE SECTION ===== -->
     <script>
-        const { createApp, ref } = Vue;
+        const { createApp, ref, reactive } = Vue;
 
         const app = createApp({
             setup() {
@@ -148,12 +159,117 @@
                 const lastName = ref('');
                 const email = ref('');
                 const phone = ref('');
-                const username = ref('');
                 const password = ref('');
                 const confirmPassword = ref('');
                 const agreeTerms = ref(false);
                 const showPassword = ref(false);
                 const showConfirmPassword = ref(false);
+
+                const errors = reactive({
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    password: '',
+                    confirmPassword: ''
+                });
+
+                const validateField = (field) => {
+                    if (field === 'firstName') {
+                        if (!firstName.value || firstName.value.trim() === '') {
+                            errors.firstName = 'First name is required';
+                        } else {
+                            errors.firstName = '';
+                        }
+                    }
+                    if (field === 'lastName') {
+                        if (!lastName.value || lastName.value.trim() === '') {
+                            errors.lastName = 'Last name is required';
+                        } else {
+                            errors.lastName = '';
+                        }
+                    }
+                    if (field === 'email') {
+                        if (!email.value || email.value.trim() === '') {
+                            errors.email = 'Email is required';
+                        } else if (!isValidEmail(email.value)) {
+                            errors.email = 'Please enter a valid email address';
+                        } else {
+                            errors.email = '';
+                        }
+                    }
+                    if (field === 'password') {
+                        if (!password.value || password.value.trim() === '') {
+                            errors.password = 'Password is required';
+                        } else if (password.value.length < 6) {
+                            errors.password = 'Password must be at least 6 characters';
+                        } else {
+                            errors.password = '';
+                        }
+                    }
+                    if (field === 'confirmPassword') {
+                        if (!confirmPassword.value || confirmPassword.value.trim() === '') {
+                            errors.confirmPassword = 'Please confirm your password';
+                        } else if (confirmPassword.value !== password.value) {
+                            errors.confirmPassword = 'Passwords do not match';
+                        } else {
+                            errors.confirmPassword = '';
+                        }
+                    }
+                };
+
+                const isValidEmail = (email) => {
+                    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return re.test(email);
+                };
+
+                const validateForm = () => {
+                    let isValid = true;
+                    
+                    // Validate all required fields
+                    const fields = ['firstName', 'lastName', 'email', 'password', 'confirmPassword'];
+                    fields.forEach(field => validateField(field));
+                    
+                    // Check if any errors exist
+                    for (let key in errors) {
+                        if (errors[key] !== '') {
+                            isValid = false;
+                            break;
+                        }
+                    }
+                    
+                    // Check for empty required fields
+                    if (!firstName.value || firstName.value.trim() === '') {
+                        errors.firstName = 'First name is required';
+                        isValid = false;
+                    }
+                    if (!lastName.value || lastName.value.trim() === '') {
+                        errors.lastName = 'Last name is required';
+                        isValid = false;
+                    }
+                    if (!email.value || email.value.trim() === '') {
+                        errors.email = 'Email is required';
+                        isValid = false;
+                    } else if (!isValidEmail(email.value)) {
+                        errors.email = 'Please enter a valid email address';
+                        isValid = false;
+                    }
+                    if (!password.value || password.value.trim() === '') {
+                        errors.password = 'Password is required';
+                        isValid = false;
+                    } else if (password.value.length < 6) {
+                        errors.password = 'Password must be at least 6 characters';
+                        isValid = false;
+                    }
+                    if (!confirmPassword.value || confirmPassword.value.trim() === '') {
+                        errors.confirmPassword = 'Please confirm your password';
+                        isValid = false;
+                    } else if (confirmPassword.value !== password.value) {
+                        errors.confirmPassword = 'Passwords do not match';
+                        isValid = false;
+                    }
+                    
+                    return isValid;
+                };
 
                 const togglePasswordVisibility = () => {
                     showPassword.value = !showPassword.value;
@@ -164,11 +280,7 @@
                 };
 
                 const handleRegister = () => {
-                    if (firstName.value && lastName.value && email.value && username.value && password.value && confirmPassword.value) {
-                        if (password.value !== confirmPassword.value) {
-                            alert('Passwords do not match!');
-                            return;
-                        }
+                    if (validateForm()) {
                         if (!agreeTerms.value) {
                             alert('Please agree to the Terms & Conditions.');
                             return;
@@ -176,8 +288,6 @@
                         const fullName = `${firstName.value} ${lastName.value}`;
                         alert(`Account created successfully for ${fullName}!`);
                         // window.location.href = 'login.html';
-                    } else {
-                        alert('Please fill in all required fields.');
                     }
                 };
 
@@ -186,12 +296,13 @@
                     lastName,
                     email,
                     phone,
-                    username,
                     password,
                     confirmPassword,
                     agreeTerms,
                     showPassword,
                     showConfirmPassword,
+                    errors,
+                    validateField,
                     togglePasswordVisibility,
                     toggleConfirmPasswordVisibility,
                     handleRegister

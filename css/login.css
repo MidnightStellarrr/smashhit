@@ -408,3 +408,29 @@ body {
         font-size: 0.8rem;
     }
 }
+
+/* ===== ERROR STYLES ===== */
+.form-group input.error {
+    border-color: #EF0606 !important;
+    box-shadow: 0 0 0 2px rgba(239, 6, 6, 0.15);
+}
+
+.error-message {
+    color: #EF0606;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
